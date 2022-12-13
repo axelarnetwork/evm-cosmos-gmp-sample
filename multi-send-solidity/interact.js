@@ -13,7 +13,14 @@ const MultiSend = require('./artifacts/contracts/MultiSend.sol/MultiSend.json');
 const IERC20 = require('./artifacts/@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IERC20.sol/IERC20.json');
 
 const axlUSDAAddr = '0x392B0A115101CC66241bC4180B000EaCEB8e31e3';
-const multiSendAddr = '0x3EB10105b5A01CC918e3288A43739968244Ce59E';
+const multiSendAddr = '0x74a010E8B8e6Dc69135DBec8749cEF55d5d09219';
+
+// args
+const destChain = 'testhub';
+const destAddress = 'cosmos1clqaewt8j3errl67dafg4ktjuj8nnvfwn2n2wy';
+const receiver = ['cosmos18u4qgduqq0pc62c94fumq4pk66jhn36vez7sf8', 'cosmos18u4qgduqq0pc62c94fumq4pk66jhn36vez7sf8'];
+const symbol = 'axlUSDA';
+const amount = 1000000;
 
 (async () => {
     const wallet = new Wallet(
@@ -28,15 +35,12 @@ const multiSendAddr = '0x3EB10105b5A01CC918e3288A43739968244Ce59E';
     console.log(`gateway is ${(await multiSend.gateway())}`)
 
     // multi send
-    const approveTx = await usda.approve(multiSend.address, 1000000);
+    const approveTx = await usda.approve(multiSend.address, amount);
     await approveTx.wait();
     console.log('approved');
 
-    const accounts = ['cosmos18u4qgduqq0pc62c94fumq4pk66jhn36vez7sf8', 'cosmos18u4qgduqq0pc62c94fumq4pk66jhn36vez7sf8'];
-    const sendTx = await multiSend.multiSend('testhub', 'gmp/cosmos1clqaewt8j3errl67dafg4ktjuj8nnvfwn2n2wy', accounts, 'USDA', 1000000);
+    const sendTx = await multiSend.multiSend(destChain, destAddress, receiver, symbol, amount);
     const tx = await sendTx.wait();
-    console.log(tx);
-
-
+    console.log(tx.transactionHash);
 })();
   

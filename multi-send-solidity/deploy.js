@@ -10,7 +10,7 @@ const {
 const config = require('config');
 const [ganache] = config.get('chains');
 
-const MultiSend = require('./artifacts/contracts/MultiSend.sol/MultiSend.json')
+const MultiSend = require('./artifacts/contracts/MultiSend.sol/MultiSend.json');
 
 
 (async () => {
@@ -22,7 +22,8 @@ const MultiSend = require('./artifacts/contracts/MultiSend.sol/MultiSend.json')
 
     const contract = await factory.deploy(ganache.gateway, AddressZero)
     const tx = await contract.deployed();
-    console.log(`contract address ${tx.address}`);
+
+    console.log(`multi send contract deployed on ${tx.address}`);
 
 })();
-  
+

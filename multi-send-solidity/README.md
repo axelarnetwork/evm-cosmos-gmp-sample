@@ -8,8 +8,12 @@ npm run buld
 ```
 
 ### Deploy and Interact
-Config the private key, and run deploy script
+Config the private key, and run deploy script to deploy the MultiSend contract
 ```
 node deploy.js
 ```
-The interact script has example how to
+
+The interact script calls `multiSend` to send tokens to remote a cosmos chain
+```
+node interact.js
+```

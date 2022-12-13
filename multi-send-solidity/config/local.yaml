@@ -1,10 +1,10 @@
 chains:
   - name: ganache-0
     url: http://a087b4719fc8944a0952490cf1020812-853925870.us-east-2.elb.amazonaws.com:7545
-    privateKey: 'EVM_PRIVATE_KEY'
+    privateKey: '8d5dbff28bef9e96c9324efdff1adaf6fc6c73eaed24d1f9c5038edfad590759'
     gateway: '0xE720c5C38028Ca08DA47E179162Eca2DD255B6eC'
   - name: ganache-1
     url: http://a6908b20721e74b339cff67ef8b63264-70216168.us-east-2.elb.amazonaws.com:7545
     confirmation: 1
-    privateKey: 'EVM_PRIVATE_KEY'
+    privateKey: '0x8d5dbff28bef9e96c9324efdff1adaf6fc6c73eaed24d1f9c5038edfad590759'
     gateway: '0xE720c5C38028Ca08DA47E179162Eca2DD255B6eC'

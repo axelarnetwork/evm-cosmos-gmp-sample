@@ -123,8 +123,6 @@ func (im IBCMiddleware) OnRecvPacket(
 	err = metadata.Unmarshal(bz)
 	if err == nil && data.Sender == gmptypes.AxelarModuleAcc {
 		switch metadata.Type {
-		case gmptypes.GeneralMsg:
-			err = im.handler.HandleGeneralMessage(ctx, metadata.SourceChain, metadata.Sender, metadata.Payload)
 		case gmptypes.GeneralMsgWithToken:
 			// parse the transfer amount
 			amt, ok := sdk.NewIntFromString(data.Amount)

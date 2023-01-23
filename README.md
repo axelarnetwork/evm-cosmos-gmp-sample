@@ -1,5 +1,10 @@
 ## EVM <-> Cosmos Generam Message Passing Demo
-This repo contains an example that sends tokens to multiple recipients between EVM chains and cosmos chains.
+Do not follow the instuctions atm, we are updating docs, the devnet and setting up relayers, execution services, etc. We will update soon.
+You could still check the provided samples.
+
+This repo contains examples for both native and wasm integration.
+- multi send is a native integration example, it sends token to multiple recipients from evm chain to a cosmos chain.
+- swap and forward sends token and calls a cosmwosm swap contract on Osmosis
 
 ### EVM
 Developer needs to deploy a smart contract that calls Axelar gateway to send cross-chain message,
@@ -27,34 +32,8 @@ We spinned up a devnet that supports message passing for testing purpose. The de
 |  ganache-0 |  axlUSDA    | 0x392B0A115101CC66241bC4180B000EaCEB8e31e3
 | ...|...|...|
 
-### Setup axelard CLI and connect to the devnet
-Get the `axelard` executable, point to the devnet and set up wallet
-1. Download the [axelard executable](./devnet-vx/bin/)
-
-2. Config the rpc
-    ```
-    # bash
-    export RPC="http://a84bc226b379f4142928245039a11d4a-1282067752.us-east-2.elb.amazonaws.com:26657"
-    export NODE="--node $RPC"
-    export TXFLAG="${NODE} --chain-id devnet-vx --gas-prices 0.007uvx --gas auto --gas-adjustment 1.5 --keyring-backend test"
-    
-    # zsh
-    export RPC="http://a84bc226b379f4142928245039a11d4a-1282067752.us-east-2.elb.amazonaws.com:26657"
-    export NODE=(--node $RPC)
-    export TXFLAG=(--chain-id devnet-vx --gas-prices 0.007uvx --gas auto --gas-adjustment 1.5 --keyring-backend test $NODE)
-    ```
-3. Add the wallet that holds some token to pay gas
-
-    recover from mnemonic, only use in test environment
-    ```
-    axelard  keys add wallet --recover  --keyring-backend test
-    
-    with mnemonic:
-    toast practice renew across cheese smile crane interest spring manage oblige speed wisdom shed fox plug unfold crazy young enhance motion federal subject furnace
-    ```
-    Free feel to use this account as faucet to fund your other wallets.
-
-4. Set up relayer, create an IBC channel between your local/test chain and the devnet. [sample hermes config](./devnet-vx/sample-hermes-config.toml) for the devnet
+### Setup relayer to the devnet
+1. Set up relayer, create an IBC channel between your local/test chain and the devnet. [sample hermes config](./devnet-vx/sample-hermes-config.toml) for the devnet
 
 5. Whitelist the chain on axelar devnet. (Reach out to us)
 ### How to send cross-chain message with token from a EVM chain to a Cosmos chain

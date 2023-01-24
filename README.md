@@ -4,7 +4,7 @@ You could still check the provided samples.
 
 This repo contains examples for both native and wasm integration.
 - multi send is a native integration example, it sends token to multiple recipients from evm chain to a cosmos chain.
-- swap and forward sends token and calls a cosmwosm swap contract on Osmosis
+- swap and forward sends token and calls a cosmwasm swap contract on Osmosis
 
 ### EVM
 Developer needs to deploy a smart contract that calls Axelar gateway to send cross-chain message,

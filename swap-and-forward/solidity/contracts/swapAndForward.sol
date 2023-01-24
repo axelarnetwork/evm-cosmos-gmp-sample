@@ -6,6 +6,7 @@ import {IAxelarGateway} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/
 import {IERC20} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IERC20.sol";
 import {IAxelarGasService} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import {StringArray} from "./stringArray.sol";
 
 contract SwapAndForward is AxelarExecutable {
     IAxelarGasService public immutable gasReceiver;
@@ -33,7 +34,7 @@ contract SwapAndForward is AxelarExecutable {
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount);
         IERC20(tokenAddress).approve(address(gateway), amount);
 
-        bytes memory payload = encode(
+        bytes memory payload = encodeToCosmwasm(
             receiverChain,
             receiverAddress,
             amount,
@@ -63,26 +64,28 @@ contract SwapAndForward is AxelarExecutable {
         );
     }
 
-    function encode(
+    function encodeToCosmwasm(
         string memory receiverChain,
         string memory receiverAddress,
         uint256 amount,
         string memory outputCoin,
         uint8 slippage
     ) internal pure returns (bytes memory) {
-        string[] memory argName = new string[](5);
-        argName[0] = "dest_chain";
-        argName[1] = "dest_address";
-        argName[2] = "swap_amount";
-        argName[3] = "output_denom";
-        argName[4] = "slippage";
+        string[5] memory argName = [
+            "dest_chain",
+            "dest_address",
+            "swap_amount",
+            "output_denom",
+            "slippage"
+        ];
 
-        string[] memory argType = new string[](5);
-        argType[0] = "string";
-        argType[1] = "string";
-        argType[2] = "string";
-        argType[3] = "string";
-        argType[4] = "uint8";
+        string[5] memory argType = [
+            "string",
+            "string",
+            "string",
+            "string",
+            "uint8"
+        ];
 
         bytes memory args = abi.encode(
             receiverChain,
@@ -92,23 +95,17 @@ contract SwapAndForward is AxelarExecutable {
             slippage
         );
 
+        // required info to build wasm msg
         bytes memory payload = abi.encode(
-            argName, // wasm contract method arg names
-            argType, // argument types
-            args // argument bytes
+            "swap_and_forward", // contracrt method name
+            StringArray.fromArray5(argName), // arg names
+            StringArray.fromArray5(argType), // arg types
+            args // args
         );
 
-        return encode_("swap_and_forward", payload);
-    }
-
-    function encode_(
-        string memory funcName,
-        bytes memory payload
-    ) internal pure returns (bytes memory) {
         return
             abi.encode(
-                bytes32(uint256(1)), // inidicates payload to wasm
-                funcName,
+                bytes32(uint256(1)), // inidicates send to wasm
                 payload
             );
     }

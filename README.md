@@ -1,13 +1,13 @@
-## EVM <-> Cosmos Generam Message Passing Demo
+## EVM <-> Cosmos General Message Passing Demo
 
 Axelar supports pass general message from EVM chains to Cosmos chains. Axelar confirms the message from a EVM chain and forward the message as memo field via ICS20 packet.
 It currently support two integration methods:
-- Native chain: Axelar confirms and forward arbitrary payload to the destiantion cosmos chian. The receiver chain needs to add a middleware and implement a customize handler to decode and process the payload.
-- Cosmwasm: The message sender from evm chain needs to encode the payload in Axelar defined schema. Axelar confirms the payload and transates to wasm execute message. The receiver chain needs to add a general purpose ibc hook middle, which calls wasm to execute the message.
+- Native chain: Axelar confirms and forward arbitrary payload to the destination cosmos chian. The receiver chain needs to add a middleware and implement a customize handler to decode and process the payload.
+- CosmWasm: The message sender from evm chain needs to encode the payload in Axelar defined schema. Axelar confirms the payload and translates to wasm execute message. The receiver chain needs to add a general purpose ibc hook middle, which calls wasm to execute the message.
 
 This repo contains examples for both native and wasm integration.
 - multi send is a native integration example, it sends token to multiple recipients from evm chain to a cosmos chain.
-- swap and forward sends token and calls a cosmwasm swap contract on Osmosis
+- swap and forward sends token and calls a CosmWasm swap contract on Osmosis
 
 ### EVM
 Developer needs to deploy a smart contract that calls Axelar gateway to send cross-chain message,
@@ -28,7 +28,7 @@ The smart contract needs to encode the payload in the following format in order 
 ```
  bytes memory argValue = abi.encode(arg1, arg2, arg3...)
 
- bytes memory payload = abi.encde(
+ bytes memory payload = abi.encode(
     wasm contract method name,
     argument name list,
     argument type list,

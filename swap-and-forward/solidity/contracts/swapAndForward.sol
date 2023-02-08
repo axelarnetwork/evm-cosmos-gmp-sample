@@ -97,7 +97,7 @@ contract SwapAndForward is AxelarExecutable {
 
         // required info to build wasm msg
         bytes memory payload = abi.encode(
-            "swap_and_forward", // contracrt method name
+            "swap_and_forward", // contract method name
             StringArray.fromArray5(argName), // arg names
             StringArray.fromArray5(argType), // arg types
             args // args

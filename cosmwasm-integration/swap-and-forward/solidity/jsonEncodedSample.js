@@ -18,6 +18,7 @@ const destChain = 'osmosis';
 const destAddress = 'osmo1zr7e2zxdeu9nk5j0wwhzfj034xhunx56mqwh7fqf24wdsp2xf5mqpcpjpl';
 const symbol = 'axlUSDA';
 const amount = '20';
+const tokenAddr = '0x392B0A115101CC66241bC4180B000EaCEB8e31e3';
 
 (async () => {
     const wallet = new Wallet(

@@ -46,7 +46,7 @@ pub fn execute(
 ) -> Result<Response, ContractError> {
     match msg {
         ExecuteMsg::MultiSend { recipients } => multi_send(deps, env, info, recipients),
-        ExecuteMsg::MultiSendToEVM {
+        ExecuteMsg::MultiSendToEvm {
             destination_chain,
             destination_address,
             recipients,

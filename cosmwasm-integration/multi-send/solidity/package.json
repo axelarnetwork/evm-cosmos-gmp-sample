@@ -1,0 +1,19 @@
+{
+  "name": "multisend-solidity",
+  "version": "1.0.0",
+  "description": "MultiSend contract can",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf artifacts && hardhat compile",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@axelar-network/axelar-gmp-sdk-solidity": "^2.0.0"
+  },
+  "devDependencies": {
+    "config": "^3.3.8",
+    "hardhat": "^2.12.2"
+  }
+}

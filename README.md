@@ -1,9 +1,10 @@
 ## EVM <-> Cosmos General Message Passing Demo
 
-Axelar supports pass general message from EVM chains to Cosmos chains. Axelar confirms the message from a EVM chain and forward the message as memo field via ICS20 packet.
-It currently support two integration methods:
+Axelar supports pass general message from EVM chains to Cosmos chains. Axelar confirms the message from a EVM chain, and forward the message as memo field via ICS20 packet.
+
+It currently supports two integration methods:
 - Native chain: Axelar confirms and forward arbitrary payload to the destination cosmos chian. The receiver chain needs to add a middleware and implement a customize handler to decode and process the payload.
-- CosmWasm: The message sender from evm chain needs to encode the payload in Axelar defined schema. Axelar confirms the payload and translates to wasm execute message. The receiver chain needs to add a general purpose ibc hook middle, which calls wasm to execute the message.
+- CosmWasm: For chains who enabled wasm module, and installed general purpose [ibc hook middleware](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-hooks), Axelar supports call a Cosmwasm contract from an EVM smart contract. The message sender can either encodes the payload in Axelar defined schema . Axelar confirms the payload and translates to wasm execute message.
 
 This repo contains examples for both native and wasm integration.
 - multi send is a native integration example, it sends token to multiple recipients from evm chain to a cosmos chain.

@@ -1,0 +1,16 @@
+{
+	"dev":{
+		"2981-collection": {
+			"store_tx": "04A3B13BD5D1282F6CCEFAB4828C33DFDFE9350BF90046292431767CB3FEE3D4",
+			"code_id": 485,
+			"instantiate_tx": "34DB65C15AB9826297C32E179FEE8C5D8511602669023BD6054EC619FA302120",
+			"address": "aura1rx4ype6rdv0fmsmxflgrs72l8as635v84z9lqv665xxhpatcxj7sfyhcy9"
+		},
+		"launchpad": {
+			"store_tx": "316A454F9E456F8FC3F18862D5659D719C1B4A0E6E719DF0BF245D61ECD3949A",
+			"code_id": 484,
+			"instantiate_tx": "FE7792B5F77878EA4AC780361C98A1357C56FA756631456E3A10F10A2927ADBC",
+			"address": "aura1t44qffsr5kwkwlaqk4wa6tg7jt6ryzq4wj4jsjmheedxhe4prt2sjrwd7m"
+		}
+	}
+}

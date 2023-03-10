@@ -141,7 +141,7 @@ async function main(contract_address, msg) {
     let send_message_msg = {
         "send_message": {
             "destination_chain": "binance",
-            "destination_address": "0xF553eB70d26910ee2B42d474e285a829226E3b19",
+            "destination_address": "0x416B6c95cA2594303ba993A0E8312CfAF94751Bf",
             "message": msg
         }
     }

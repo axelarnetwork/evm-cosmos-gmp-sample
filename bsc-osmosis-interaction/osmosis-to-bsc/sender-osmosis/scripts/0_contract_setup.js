@@ -7,7 +7,7 @@ const { DirectSecp256k1HdWallet, coin } = require('@cosmjs/proto-signing');
 const { calculateFee, GasPrice } = require('@cosmjs/stargate');
 
 // wasm folder
-const wasmFolder = `${__dirname}/../../artifacts`;
+const wasmFolder = `${__dirname}/../artifacts`;
 
 // gas price
 const gasPrice = GasPrice.fromString(`0.025${chainConfig.denom}`);
@@ -149,31 +149,11 @@ async function main(contract_name) {
 
     console.log("instantiateResponse: ", instantiateResponse);
 
-    // // Admin add new phase
-    // const add_new_phase_msg = {
-    //     "add_mint_phase": {
-    //         "phase_data": {
-    //             "start_time": (Date.now() + 10000) + "000000",
-    //             "end_time": (Date.now() + 600000) + "000000",
-    //             "max_supply": 2000,
-    //             "max_nfts_per_address": 2,
-    //             "price": {
-    //                 "amount": "50000",
-    //                 "denom": "utaura",
-    //             },
-    //             "is_public": false,
-    //         },
-    //     }
-    // }
-    // // execute message add new phase to contract
-    // console.log("1. Adding new phase...");
-    // let addPhaseResponse = await execute(deployerClient, deployerAccount, instantiateResponse.contractAddress, add_new_phase_msg);
-
 }
 
 const myArgs = process.argv.slice(2);
 if (myArgs.length != 1) {
-    console.log("Usage: node 0_launchpad_setup.js <wasm_contract_name>");
+    console.log("Usage: node 0_contract_setup.js <wasm_contract_name>");
     process.exit(1);
 }
 main(myArgs[0]);

@@ -114,7 +114,7 @@ pub fn send_message(
     let ibc_transfer = MsgTransfer {
         source_port: "transfer".to_string(), // What is this?
         source_channel: config.channel,
-        token: None,
+        token: None, // No token is sent with the message. Error is at here
         sender: env.contract.address.to_string(),
         receiver: AXELAR_GATEWAY.to_string(),
         timeout_height: None,

@@ -7,7 +7,7 @@ const { DirectSecp256k1HdWallet, coin } = require('@cosmjs/proto-signing');
 const { calculateFee, GasPrice } = require('@cosmjs/stargate');
 
 // wasm folder
-const wasmFolder = `${__dirname}/../../artifacts`;
+const wasmFolder = `${__dirname}/../artifacts`;
 
 // gas price
 const gasPrice = GasPrice.fromString(`0.025${chainConfig.denom}`);
@@ -109,7 +109,7 @@ async function query(userClient, contract, queryMsg) {
     return queryResponse;
 }
 
-async function main(contract_address) {
+async function main(contract_address, msg) {
     // ***************************
     // SETUP INFORMATION FOR USERS
     // ***************************
@@ -136,24 +136,24 @@ async function main(contract_address) {
     // ****************
     // EXECUTE CONTRACT
     // ****************
-    // Deployer mint nft
-    console.log("1. multi_send_to_evm...");
-    let mint_nft_msg = {
-        "multi_send_to_evm": {
+    // A user send message
+    console.log("Sending message ...");
+    let send_message_msg = {
+        "send_message": {
             "destination_chain": "binance",
             "destination_address": "0xF553eB70d26910ee2B42d474e285a829226E3b19",
-            "recipients": ["0x3552C6ff4a091ED6f51dF52fcD3e6e7682C57fCF"]
+            "message": msg
         }
     }
-    await execute(deployerClient, deployerAccount, contract_address, mint_nft_msg);
+    await execute(deployerClient, deployerAccount, contract_address, send_message_msg);
     
     console.log("multi_send_to_evm completed!");
 }
 
 const myArgs = process.argv.slice(2);
-// if (myArgs.length != 4) {
-//     console.log("Usage: node 1_launchpad_mint.js <contract_address> <phase_id> <amount> <price>");
-//     return;
-// }
+if (myArgs.length != 2) {
+    console.log("Usage: node 1_launchpad_mint.js <contract_address> <message>");
+    return;
+}
 
-main(myArgs[0]);
+main(myArgs[0], myArgs[1]);

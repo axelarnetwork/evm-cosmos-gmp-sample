@@ -1,16 +1,17 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    coins, BankMsg, Binary, Coin, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult,
+    coins, BankMsg, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult,
     Uint128,
 };
 use cw2::set_contract_version;
-use ethabi::{encode, Token};
+use ethabi::{Address, encode, Token};
+use ethabi::ethereum_types::H160;
 use serde::{Deserialize, Serialize};
 use serde_json_wasm::to_string;
 
 use crate::error::ContractError;
-use crate::ibc::{MsgTransfer, MsgTransferResponse};
+use crate::ibc::{MsgTransfer};
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::{Config, CONFIG};
 
@@ -107,16 +108,15 @@ pub fn multi_send_to_evm(
     recipients: Vec<String>,
 ) -> Result<Response, ContractError> {
     let config = CONFIG.load(deps.storage)?;
-
     // memo
     let payload = encode(&[Token::Array(
-        recipients.into_iter().map(|s| Token::String(s)).collect(),
+        recipients.into_iter().map(|s| Token::Address(Address::from(s.parse::<H160>().unwrap_or(H160::zero())))).collect(), // skipped validation / error handle
     )]);
 
     let msg = GeneralMessage {
-        destination_chain: destination_chain,
+        destination_chain,
         destination_address: destination_contract.clone(),
-        payload: payload,
+        payload,
         type_: 2,
     };
 

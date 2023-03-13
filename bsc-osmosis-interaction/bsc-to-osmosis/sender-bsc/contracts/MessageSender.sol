@@ -23,7 +23,7 @@ contract MessageSender is AxelarExecutable {
     ) external {
         // Define the payload to cosmwasm,
         bytes memory payload  = abi.encode(
-            "send_message", // method name
+            "receive_message", // method name
             "message", // argument name
             "string", // argument type
             message // argument value
@@ -63,7 +63,7 @@ contract MessageSender is AxelarExecutable {
 
         // Define the payload to cosmwasm
         bytes memory payload  = abi.encode(
-            "send_message_with_token", // method name
+            "receive_message_with_token", // method name
             "message", // argument name
             "string", // argument type
             message // argument value

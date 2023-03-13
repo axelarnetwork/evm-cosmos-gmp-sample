@@ -1,7 +1,7 @@
 [package]
-name = "multi-send"
+name = "message-sender"
 version = "0.1.0"
-authors = ["Haiyi Zhong <haiyizxx@gmail.com>"]
+authors = ["hoanm <mr.nmh175@gmail.com>"]
 edition = "2021"
 
 exclude = [

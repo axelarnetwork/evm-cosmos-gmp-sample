@@ -1,13 +1,12 @@
 package gmpdemo
 
 import (
-	"encoding/hex"
+	"encoding/json"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
-	gmptypes "github.com/cosmos/gaia/v7/x/gmpdemo/types"
 	"github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
 	transfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v3/modules/core/04-channel/types"
@@ -16,6 +15,26 @@ import (
 )
 
 var _ porttypes.Middleware = &IBCMiddleware{}
+
+const AxelarGMPAcc = "axelar1dv4u5k73pzqrxlzujxg3qp8kvc3pje7jtdvu72npnt5zhq05ejcsn5qme5s"
+
+// Message is attached in ICS20 packet memo field
+type Message struct {
+	SourceChain   string `json:"source_chain"`
+	SourceAddress string `json:"source_address"`
+	Payload       []byte `json:"payload"`
+	Type          int64  `json:"type"`
+}
+
+type MessageType int
+
+const (
+	// TypeUnrecognized means coin type is unrecognized
+	TypeUnrecognized = iota
+	TypeGeneralMessage
+	// TypeGeneralMessageWithToken is a general message with token
+	TypeGeneralMessageWithToken
+)
 
 type IBCMiddleware struct {
 	app         porttypes.IBCModule
@@ -114,31 +133,36 @@ func (im IBCMiddleware) OnRecvPacket(
 		return channeltypes.NewErrorAcknowledgement("cannot unmarshal ICS-20 transfer packet data")
 	}
 
-	var metadata gmptypes.Metadata
-	bz, err := hex.DecodeString(data.GetMemo())
-	if err != nil {
-		return channeltypes.NewErrorAcknowledgement(err.Error())
+	// authenticate the message with packet sender + channel-id
+	if data.Sender != AxelarGMPAcc || packet.GetDestChannel() != "channel-0" {
+		return ack
 	}
 
-	err = metadata.Unmarshal(bz)
-	if err == nil && data.Sender == gmptypes.AxelarModuleAcc {
-		switch metadata.Type {
-		case gmptypes.GeneralMsgWithToken:
-			// parse the transfer amount
-			amt, ok := sdk.NewIntFromString(data.Amount)
-			if !ok {
-				return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrapf(transfertypes.ErrInvalidAmount, "unable to parse transfer amount (%s) into sdk.Int", data.Amount).Error())
-			}
+	var msg Message
+	if err := json.Unmarshal([]byte(data.GetMemo()), &msg); err != nil {
+		return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrapf(types.ErrGeneralMessage, "cannot unmarshal memo"))
+	}
 
-			denom := parseDenom(packet, data.Denom)
-			err = im.handler.HandleGeneralMessageWithToken(ctx, metadata.SourceChain, metadata.Sender, metadata.Payload, data.Receiver, sdk.NewCoin(denom, amt))
-		default:
-			err = fmt.Errorf("unrecognized type: %s", metadata.Type)
+	switch msg.Type {
+	case TypeGeneralMessage:
+		// implement the handler
+		err = im.handler.HandleGeneralMessage(ctx, msg.SourceChain, msg.Sender, msg.Payload, data.Receiver)
+	case TypeGeneralMessageWithToken:
+		// parse the transfer amount
+		amt, ok := sdk.NewIntFromString(data.Amount)
+		if !ok {
+			return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrapf(transfertypes.ErrInvalidAmount, "unable to parse transfer amount (%s) into sdk.Int", data.Amount).Error())
 		}
 
-		if err != nil {
-			return channeltypes.NewErrorAcknowledgement(err.Error())
-		}
+		denom := parseDenom(packet, data.Denom)
+		// implement the handler
+		err = im.handler.HandleGeneralMessageWithToken(ctx, msg.SourceChain, msg.Sender, msg.Payload, data.Receiver, sdk.NewCoin(denom, amt))
+	default:
+		err = fmt.Errorf("unrecognized type: %s", msg.Type)
+	}
+
+	if err != nil {
+		return channeltypes.NewErrorAcknowledgement(err.Error())
 	}
 
 	return ack

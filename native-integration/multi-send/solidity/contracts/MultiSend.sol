@@ -25,21 +25,24 @@ contract MultiSend is AxelarExecutable {
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount);
         IERC20(tokenAddress).approve(address(gateway), amount);
         
-        bytes memory payload =  abi.encode(receiverAddresses);
-        
+        bytes memory payloadWithVersion = abi.encode(
+            bytes32(uint256(0)), // version number
+            abi.encode(receiverAddresses)
+        );
+
         // optional pay gas service
         if (msg.value > 0) {
             gasReceiver.payNativeGasForContractCallWithToken{value: msg.value}(
                 address(this), 
                 destinationChain, 
                 destinationAddress, 
-                payload, 
+                payloadWithVersion, 
                 symbol, 
                 amount, 
                 msg.sender);
         }
 
-        gateway.callContractWithToken(destinationChain, destinationAddress, payload, symbol, amount);
+        gateway.callContractWithToken(destinationChain, destinationAddress, payloadWithVersion, symbol, amount);
     }
 
     function _executeWithToken(

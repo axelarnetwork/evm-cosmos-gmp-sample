@@ -1,13 +1,13 @@
 
 ## GMP between EVM and Cosmos chains.
 
-Axelar uses a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3pje7jtdvu72npnt5zhq05ejcsn5qme5` for gmp communication.
-The recipient chain can use channel-id and sender address to authenticate the message.
+Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3pje7jtdvu72npnt5zhq05ejcsn5qme5` to facilitate GMP communication.
+ The recipient chain can authenticate the message using channel-id and the account address.
 
 ### EVM -> Cosmos
-wrap the payload with version number, and call Axelar gateway contract.
+1. Wrap the payload with version number and call Axelar Gateway contract.
 ```
-bytes32 verison number (0 for native)
+bytes32 verison number (0 for native chain integration)
 bytes   payload
 ```
 e.g.
@@ -22,9 +22,9 @@ bytes memory payload = abi.encode(
 gateway.callContractWithToken(destinationChain, destinationAddress, payload, symbol, amount);
 ```
 
-Axelar confirms the message, attaches source chain and address info, and sends the message to the destination chain via ics20 memo.
+2. Axelar verifies the message, attaches source chain and address info, and forwards the message to the destination chain using the ICS20 packet memo.
 
-Message is a json struct, contains source_chain, source_address and payload, e.g.
+Message is a JSON struct containing `source_chain`, `source_address` and `payload`. For instance:
 ```json
 {
   "source_chain": "Ethereum",
@@ -33,15 +33,25 @@ Message is a json struct, contains source_chain, source_address and payload, e.g
   "type": 1
 }
 ```
-type field indicates message type
-- `1` pure message
-- `2` message with token
+The `type` field denotes the message type
+- `1`: pure message
+- `2`: message with token
 
-The recipient chain has freedom to process the payload upon packet arrival.
+On packet arrival, the recipient chain can processe the payload as needed.
 
 ### Cosmos -> EVM
-Send a ibc transfer to `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3pje7jtdvu72npnt5zhq05ejcsn5qme5`, attach the message in the memo field.
-The message indicates the destination chain and address, the payload and message type.
+1. Initiate an IBC transfer to Axelar GMP account (`axelar1dv4u5k73pzqrxlzujxg3qp8kvc3pje7jtdvu72npnt5zhq05ejcsn5qme5`) and attach the message in the memo field.
+The message specifies the destination chain, address, payload and message type.
+```go
+type Message struct {
+	DestinationChain   string `json:"destination_chain"`
+	DestinationAddress string `json:"destination_address"`
+	Payload            []byte `json:"payload"`
+	Type               int64  `json:"type"`
+	Fee                *Fee   `json:"fee"` // Optional
+}
+```
+For example,
 ```json
 {
   "destination_chain": "Ethereum",
@@ -51,7 +61,42 @@ The message indicates the destination chain and address, the payload and message
 }
 ```
 
-Upon arrival, Axelar authenticates the message based on channel-id, validators co-sign an approval and relayers relay the approval to Axelar evm gateway.
+2. Upon arrival, Axelar network authenticates the message using channel-id. Validators co-sign an approval, which relayers then relay to the Axelar EVM Gateway.
 
-Axelar provides auto executing service if the smart contract implements the `IAxelarExecutable` interface.
-[Developer doc](https://docs.axelar.dev/dev/general-message-passing/gmp-messages) contains instruction for solidity smart contract
+3. If a smart contract implements the IAxelarExecutable interface, Axelar offers an auto-executing service. For instructions on Solidity smart contracts, refer to the [Developer doc](https://docs.axelar.dev/dev/general-message-passing/gmp-messages)
+
+### Optional Executor Service for Cosmos -> EVM
+Message senders can choose to pay a message executor on Axelar network to handle message execution on the destination EVM chain.
+The sender can include an optional fee field in the message, specifying the `amount` and `recipient`.
+
+1. Estimate the source gas fee in the desired token. Calcualte the gas required to execute the message on destination, and then use [estimateGasFee](https://docs.axelar.dev/dev/axelarjs-sdk/axelar-query-api#estimategasfee) (WIP integrating cosmos chains) to determine the source gas fee in the desired token.
+
+2. Add the `fee` field to the message. The ICS20 packet total amount should equal to desired amount on destination + gas amount  
+
+```go
+type Fee struct {
+	Amount    string `json:"amount"`
+	Recipient string `json:"recipient"`
+}
+```
+For example,
+```json
+{
+  "destination_chain": "Ethereum",
+  "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
+  "payload": ...,
+  "type": 1,
+  "fee": {
+    "amount": "1000000",
+    "recipient": "axelar1hyav29jdpmesg6mal7acmkpjdywjkvlsugtch3"
+  }
+}
+```
+
+3. Axelar network deducts fee from the ICS20 packet, and forward the remaining value to the destination EVM chain.
+
+#### Refunds
+If the prepaid fee exceeds the actual amount required for relaying a message, the executor service refunds the excess gas to the original packet sender after execution.
+
+#### Increasing Fee
+If the prepaid fee is insufficient, anyone can top up a pending message. They can send gas token to the executor address, and indicate the `message id` in memo field. The `message id` is a unique identifier generated by Axelar network for each general message.

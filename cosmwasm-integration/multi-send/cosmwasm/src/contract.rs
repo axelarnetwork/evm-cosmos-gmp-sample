@@ -7,11 +7,11 @@ use cosmwasm_std::{
 use cw2::set_contract_version;
 use ethabi::{Address, encode, Token};
 use ethabi::ethereum_types::H160;
-use serde::{Deserialize, Serialize};
 use serde_json_wasm::to_string;
 
 use crate::error::ContractError;
 use crate::ibc::{MsgTransfer};
+use crate::types::{Fee, GeneralMessage};
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::{Config, CONFIG};
 
@@ -51,6 +51,7 @@ pub fn execute(
             destination_chain,
             destination_address,
             recipients,
+            fee
         } => multi_send_to_evm(
             deps,
             env,
@@ -58,13 +59,14 @@ pub fn execute(
             destination_chain,
             destination_address,
             recipients,
+            fee
         ),
     }
 }
 
 pub fn multi_send(
     deps: DepsMut,
-    env: Env,
+    _env: Env,
     info: MessageInfo,
     recipients: Vec<String>,
 ) -> Result<Response, ContractError> {
@@ -90,14 +92,7 @@ pub fn multi_send(
     Ok(Response::new().add_messages(msgs))
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
-struct GeneralMessage {
-    destination_chain: String,
-    destination_address: String,
-    payload: Vec<u8>,
-    #[serde(rename = "type")]
-    type_: i64,
-}
+
 
 pub fn multi_send_to_evm(
     deps: DepsMut,
@@ -106,18 +101,27 @@ pub fn multi_send_to_evm(
     destination_chain: String,
     destination_contract: String,
     recipients: Vec<String>,
+    fee: Option<Fee>
 ) -> Result<Response, ContractError> {
     let config = CONFIG.load(deps.storage)?;
-    // memo
-    let payload = encode(&[Token::Array(
-        recipients.into_iter().map(|s| Token::Address(Address::from(s.parse::<H160>().unwrap_or(H160::zero())))).collect(), // skipped validation / error handle
-    )]);
+
+    let addresses = recipients
+    .into_iter()
+    .map(|s| {
+        match s.parse::<H160>() {
+            Ok(address) => Token::Address(Address::from(address)),
+            Err(_) => Err(ContractError::InvalidRecipientAddress { address: s }),
+        }
+    })
+    .collect::<Result<Vec<Token>, ContractError>>()?;
+    let payload = encode(&[Token::Array(addresses)]);
 
     let msg = GeneralMessage {
         destination_chain,
         destination_address: destination_contract.clone(),
         payload,
         type_: 2,
+        fee
     };
 
     let coin = cw_utils::one_coin(&info).unwrap();

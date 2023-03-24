@@ -1,4 +1,6 @@
 use cosmwasm_schema::{cw_serde, QueryResponses};
+use types::Fee;
+use crate::types;
 
 #[cw_serde]
 pub struct InstantiateMsg {
@@ -12,12 +14,13 @@ pub enum ExecuteMsg {
     MultiSend {
         recipients: Vec<String>
     },
-    
+
     /// Send a cross chain message, distribute equal amount among recipients
     MultiSendToEvm {
         destination_chain: String,
         destination_address: String,
-        recipients: Vec<String>
+        recipients: Vec<String>,
+        fee: Option<Fee>
     },
 }
 

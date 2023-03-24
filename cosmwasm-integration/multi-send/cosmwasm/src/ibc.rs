@@ -1,6 +1,4 @@
 use osmosis_std_derive::CosmwasmExt;
-use cosmwasm_std::{Coin};
-
 
 #[derive(
     Clone,

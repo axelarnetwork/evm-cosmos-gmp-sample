@@ -1,5 +1,0 @@
-chains:
-  - name: ganache-0
-    url: http://a5c6803b39cd942c3b9daee2847e24fa-1977123350.us-east-2.elb.amazonaws.com:7545
-    privateKey: cf469f1c4b06a6204bb9f977fa2865271a17a4ed2028ba4c064fea4754e81c83
-    gateway: '0xE720c5C38028Ca08DA47E179162Eca2DD255B6eC'

@@ -1,39 +1,10 @@
 ## EVM <-> Cosmos General Message Passing Demo
 
-Axelar supports pass general message from EVM chains to Cosmos chains. Axelar confirms the message from a EVM chain, and forward the message as memo field via ICS20 packet.
+Axelar enables general messages passing between EVM and Cosmos chains.
 
-It currently supports two integration methods:
-- Native chain: Axelar confirms and forward arbitrary payload to the destination cosmos chian. The receiver chain needs to add a middleware and implement a customize handler to decode and process the payload.
-- CosmWasm: For chains who enabled wasm module, and installed general purpose [ibc hook middleware](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-hooks), Axelar supports call a Cosmwasm contract from an EVM smart contract. The message sender can either encodes the payload in Axelar defined schema . Axelar confirms the payload and translates to wasm execute message.
+In a nutshell, Axelar verifies messages originating from an EVM chain and forwards them as memo fields through ICS20 packets.
 
-This repo contains examples for both native and wasm integration.
-- multi send is a native integration example, it sends token to multiple recipients from evm chain to a cosmos chain.
-- swap and forward sends token and calls a CosmWasm swap contract on Osmosis
+Two integration methods are currently supported:
+1. **Native Chain Integration**: Axelar verifies and forwards arbitrary payloads to the destination Cosmos chain. The receiving chain must implement an IBC middleware with a custom handler to decode and process the payload. For more information, please refer to the [Native integration guide](./native-integration/README.md).
 
-### EVM
-Developer needs to deploy a smart contract that calls Axelar gateway to send cross-chain message,
-and decode message upon receiving the payload from a remote chain.
-
-[MultiSend.sol](./multi-send-solidity/contracts/MultiSend.sol) is a sample contract.
-
-[deploy.js](./multi-send-solidity/deploy.js) and [interact.js](./multi-send-solidity/interact.js) are scripts to deploy and interact with the sample contract.
-
-### Cosmos Native Integration
-A Cosmos chain can integrate cross chain message passing by adding an [IBC middleware](./multi-send-cosmos-native/gmpdemo/ibc_middleware.go),
-and a handler that implements [GeneralMessageHandler](./multi-send-cosmos-native/gmpdemo/gmp_handler.go#L33) interface to decode the paylod. [MultiSendHandler](./multi-send-cosmos-native/gmpdemo/keeper/multi_send_handler.go#L27) is a sample implementation.
-
-[MultiSend](./multi-send-cosmos-native/gmpdemo/keeper/msg_server.go) is a sample transaction that sends payload to an EVM chain.
-
-### Wasm Integration
-The smart contract needs to encode the payload in the following format in order to call a wasm contract
-```
- bytes memory argValue = abi.encode(arg1, arg2, arg3...)
-
- bytes memory payload = abi.encode(
-    wasm contract method name,
-    argument name list,
-    argument type list,
-    argValue bytes
-)
-```
-Axelar also reserves `source_chain` and `source_address` keywords in wasm contract argument name. Axelar replaces with its canonical chain and sender info if the contract call contains these arguments. 
+- **CosmWasm Integration**: For chains with enabled Wasm modules, Axelar supports calling a CosmWasm contract from an EVM smart contract ([with some limitations](./cosmwasm-integration/README.md#encoding-limitations)). The receiving chain must install the general-purpose [IBC hook middleware](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-hooks). Message sender have the option to either encode the payload using Axelar's defined schema or pass the JSON CosmWasm contract call directly. Axelar verifies the payload and translates it into a Wasm execute message. For more details, please refer to the [CosmWasm integration guide](./cosmwasm-integration/README.md).

@@ -109,7 +109,7 @@ pub fn multi_send_to_evm(
     .into_iter()
     .map(|s| {
         match s.parse::<H160>() {
-            Ok(address) => Token::Address(Address::from(address)),
+            Ok(address) => Ok(Token::Address(Address::from(address))),
             Err(_) => Err(ContractError::InvalidRecipientAddress { address: s }),
         }
     })

@@ -25,8 +25,8 @@ contract MultiSend is AxelarExecutable {
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount);
         IERC20(tokenAddress).approve(address(gateway), amount);
         
-        bytes memory payloadWithVersion = abi.encode(
-            bytes32(uint256(0)), // version number
+        bytes memory payloadWithVersion = abi.encodePacked(
+            bytes4(uint32(0)), // version number
             abi.encode(receiverAddresses)
         );
 

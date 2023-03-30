@@ -32,8 +32,8 @@ contract MultiSend is AxelarExecutable {
             StringArray.fromArray1(["string[]"]), // argument type
             argValue // argument value
         );
-        bytes memory payloadToCW = abi.encode(
-            bytes32(uint256(1)), // verison number
+        bytes memory payloadToCW = abi.encodePacked(
+            bytes4(uint32(1)), // version number
             payload
         );
 

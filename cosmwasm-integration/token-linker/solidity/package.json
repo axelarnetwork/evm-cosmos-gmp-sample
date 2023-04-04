@@ -12,8 +12,7 @@
   "dependencies": {
     "@axelar-network/axelar-cgp-solidity": "^4.3.0",
     "@axelar-network/axelar-gmp-sdk-solidity": "^3.0.0",
-    "@openzeppelin/contracts": "^4.8.1",
-    "ethers": "^5.7.2"
+    "@openzeppelin/contracts": "^4.8.1"
   },
   "devDependencies": {
     "config": "^3.3.8",

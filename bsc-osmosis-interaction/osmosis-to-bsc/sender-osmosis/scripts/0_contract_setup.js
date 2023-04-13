@@ -142,7 +142,7 @@ async function main(contract_name) {
 
     // prepare instantiate message
     const instantiateMsg = {
-        "channel": "channel-1946",
+        "channel": "channel-5",
     }
     // instantiate contract
     let instantiateResponse = await instantiate(storeCodeResponse.codeId, instantiateMsg);

@@ -16,12 +16,15 @@ pub fn instantiate(
     deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    _msg: InstantiateMsg,
+    msg: InstantiateMsg,
 ) -> Result<Response, ContractError> {
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
 
     let cfg = Config {
-        last_received_message: "".to_string(),
+        channel: msg.channel,
+        source_chain: msg.original_chain,
+        linker_address: msg.linker_address,
+        axelar_gmp_account: msg.axelar_gmp_account,
     };
     CONFIG.save(deps.storage, &cfg)?;
 
@@ -36,18 +39,11 @@ pub fn execute(
     msg: ExecuteMsg,
 ) -> Result<Response, ContractError> {
     match msg {
-        ExecuteMsg::ReceiveMessage {
-            destination_chain,
-            destination_address,
-            message,
-        } => receive_message(
-            deps,
-            env,
-            info,
-            destination_chain,
-            destination_address,
-            message,
-        ),
+        ExecuteMsg::ExecuteFromRemote {
+            source_chain,
+            source_address,
+            payload,
+        } => receive_message(deps, env, info, source_chain, source_address, payload),
         ExecuteMsg::ReceiveMessageWithToken {
             destination_chain,
             destination_address,
@@ -66,11 +62,41 @@ pub fn execute(
 pub fn receive_message(
     deps: DepsMut,
     env: Env,
-    _info: MessageInfo,
-    destination_chain: String,
-    destination_contract: String,
-    message: String,
+    info: MessageInfo,
+    source_chain: String,
+    source_address: String,
+    payload: Binary,
 ) -> Result<Response, ContractError> {
+    let config = CONFIG.load(deps.storage)?;
+    // Authentication
+    if source_chain != config.source_chain
+        || source_address != config.linker_address
+        || info.sender != config.axelar_gmp_account
+    {
+        return Err(ContractError::Unauthorized {});
+    }
+
+    let decoded = decode(
+        &[ParamType::String, ParamType::Uint(256)],
+        payload.as_slice(),
+    )
+    .unwrap(); // TODO: handle error
+
+    // TODO: check if amount and recipient are valid
+    let amount = decoded[1].to_owned().into_uint().unwrap().as_u128();
+
+    // call into cw20-base to mint the token, call as self as no one else is allowed
+    let sub_info = MessageInfo {
+        sender: env.contract.address.clone(),
+        funds: vec![],
+    };
+    Ok(execute_mint(
+        deps,
+        env,
+        sub_info,
+        decoded[0].to_string(),
+        Uint128::from(amount),
+    )?)
     // update the last received message in config
     let mut config = CONFIG.load(deps.storage)?;
     config.last_received_message = format!(

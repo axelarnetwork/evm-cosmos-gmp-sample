@@ -139,13 +139,13 @@ async function main(contract_address, msg) {
     // A user send message
     console.log("Sending message ...");
     let send_message_msg = {
-        "send_message": {
+        "send_message_with_tokens": {
             "destination_chain": "binance",
             "destination_address": "0x416B6c95cA2594303ba993A0E8312CfAF94751Bf",
             "message": msg
         }
     }
-    await execute(deployerClient, deployerAccount, contract_address, send_message_msg);
+    await execute(deployerClient, deployerAccount, contract_address, send_message_msg, 1000000);
     
     console.log("multi_send_to_evm completed!");
 }

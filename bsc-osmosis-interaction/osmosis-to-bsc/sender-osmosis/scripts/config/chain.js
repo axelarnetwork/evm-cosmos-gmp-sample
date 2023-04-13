@@ -54,7 +54,7 @@ const osmosis = {
     broadcastPollIntervalMs: 1000
 };
 
-let defaultChain = osmosis;
+let defaultChain = euphoria;
 // switch (process.env.CHAIN_ID) {
 //   case 'euphoria':
 //     defaultChain = euphoria;

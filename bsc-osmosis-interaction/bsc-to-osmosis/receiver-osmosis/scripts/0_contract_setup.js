@@ -110,7 +110,7 @@ async function query(userClient, contract, queryMsg) {
     return queryResponse;
 }
 
-async function main(contract_name) {
+async function main() {
     // ***************************
     // SETUP INFORMATION FOR USERS
     // ***************************
@@ -138,10 +138,15 @@ async function main(contract_name) {
     // EXECUTE CONTRACT
     // ****************
     // store contract
-    let storeCodeResponse = await store_contract(contract_name);
+    let storeCodeResponse = await store_contract("message_receiver");
 
     // prepare instantiate message
-    const instantiateMsg = {}
+    const instantiateMsg = {
+        "channel": "channel-1946",
+        "original_chain": "binance", // the chain name of the original token deployed on the EVM chain
+        "linker_address": "0x18e2d2498f084c276abA3680010b209988E1456c", // the address of the token linker contract deployed on the EVM chain
+        "axelar_gmp_account": "osmo1ugjmqpgcw6v3kn82g4zc3xf0n9u4zm7qz8p0f6w083254se74umsempjlt", // the axelar gmp account address representation on the Cosmos chain
+    }
     // instantiate contract
     let instantiateResponse = await instantiate(storeCodeResponse.codeId, instantiateMsg);
 
@@ -149,9 +154,4 @@ async function main(contract_name) {
 
 }
 
-const myArgs = process.argv.slice(2);
-if (myArgs.length != 1) {
-    console.log("Usage: node 0_contract_setup.js <wasm_contract_name>");
-    process.exit(1);
-}
-main(myArgs[0]);
+main();

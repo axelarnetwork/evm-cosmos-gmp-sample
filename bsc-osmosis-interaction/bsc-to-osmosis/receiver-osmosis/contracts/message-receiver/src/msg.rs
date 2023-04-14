@@ -1,5 +1,6 @@
-use crate::state::Config;
+use crate::state::ConfigMsg;
 use cosmwasm_schema::{cw_serde, QueryResponses};
+use cosmwasm_std::Binary;
 
 #[cw_serde]
 pub struct InstantiateMsg {
@@ -16,19 +17,13 @@ pub enum ExecuteMsg {
     ExecuteFromRemote {
         source_chain: String,
         source_address: String,
-        payload: String,
-    },
-    /// Send a cross chain message with tokens
-    ReceiveMessageWithToken {
-        destination_chain: String,
-        destination_address: String,
-        message: String,
+        payload: Binary,
     },
 }
 
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum QueryMsg {
-    #[returns(Config)]
+    #[returns(ConfigMsg)]
     ConfigMsg {},
 }

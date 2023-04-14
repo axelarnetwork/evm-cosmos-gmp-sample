@@ -139,7 +139,7 @@ async function main(contract_address) {
     // A user send message
     console.log("Sending message ...");
     let query_config_msg = {
-        "config": {}
+        "config_msg": {}
     }
     await query(deployerClient, contract_address, query_config_msg);
 }

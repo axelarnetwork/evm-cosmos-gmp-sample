@@ -19,7 +19,7 @@ const tokenAddr = '0xDE41332a508E363079FD6993B81De049cD362B6D';
 
 // args
 const destChain = 'osmosis-5';
-const destContract = 'osmo1rs93gp7tw3fkls78xdjz09yll6rtv5eag0chtazl8m2hy37xtjpssd6009';
+const destContract = 'osmo10jpqefed0uwrkhcc50tysw3755tt43tm0ym2xncjtvaxk6fryhqqkxv75x';
 const recipient = 'osmo1uaflg8e46wwtvm0td8mkjeaa0d5s53c9eqk4qg';
 const amount = 1000000;
 
@@ -39,7 +39,7 @@ const amount = 1000000;
     const approveTx = await originalToken.approve(tokenLinker.address, amount);
     await approveTx.wait();
 
-    const sendTx = await tokenLinker.transferToCosmos(destChain, destContract, recipient, amount);
+    const sendTx = await tokenLinker.SendMessage(destChain, destContract, recipient, amount);
     const tx = await sendTx.wait();
     
     console.log(`transaction hash is ${tx.transactionHash}`);

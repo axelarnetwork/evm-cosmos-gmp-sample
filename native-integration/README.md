@@ -8,72 +8,74 @@ Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3p
 
 1. Wrap the payload with version number and call Axelar Gateway contract.
 
-```
-bytes4  version number (0 for native chain integration)
-bytes   payload
-```
+    ```
+    bytes4  version number (0 for native chain integration)
+    bytes   payload
+    ```
 
-e.g.
+    e.g.
 
-```solidity
-uint32 version = 0;
+    ```solidity
+    uint32 version = 0;
 
-bytes memory payload = abi.encodePacked(
-    bytes4(version),
-    abi.encode(...)
-);
+    bytes memory payload = abi.encodePacked(
+        bytes4(version),
+        abi.encode(...)
+    );
 
-gateway.callContractWithToken(destinationChain, destinationAddress, payload, symbol, amount);
-```
+    gateway.callContractWithToken(destinationChain, destinationAddress, payload, symbol, amount);
+    ```
 
 2. Axelar verifies the message, attaches source chain and address info, and forwards the message to the destination chain using the ICS20 packet memo.
 
-Message is a JSON struct containing `source_chain`, `source_address` and `payload`. For instance:
+    Message is a JSON struct containing `source_chain`, `source_address` and `payload`. For instance:
 
-```json
-{
-  "source_chain": "Ethereum",
-  "source_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
-  "payload": "base-64 encoded versioned payload",
-  "type": 1
-}
-```
+    ```json
+    {
+      "source_chain": "Ethereum",
+      "source_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
+      "payload": "base-64 encoded versioned payload",
+      "type": 1
+    }
+    ```
 
-The `type` field denotes the message type
+    The `type` field denotes the message type
 
-- `1`: pure message
-- `2`: message with token
+    - `1`: pure message
+    - `2`: message with token
 
-On packet arrival, the recipient chain can processe the payload as needed.
+    On packet arrival, the recipient chain can processe the payload as needed.
+
+3. Refer to the [sample middleware](./sample-middleware) for an example of unmarshal and process the message.
 
 ### Cosmos -> EVM
 
 1. Initiate an IBC transfer to Axelar GMP account (`axelar1dv4u5k73pzqrxlzujxg3qp8kvc3pje7jtdvu72npnt5zhq05ejcsn5qme5`) and attach the message in the memo field. The message specifies the destination chain, address, payload and message type. The message type can be
 
-- `1`: pure message
-- `2`: message with token
-- `3`: pure token transfer
+    - `1`: pure message
+    - `2`: message with token
+    - `3`: pure token transfer
 
-```go
-type Message struct {
- DestinationChain   string `json:"destination_chain"`
- DestinationAddress string `json:"destination_address"`
- Payload            []byte `json:"payload"`
- Type               int64  `json:"type"`
- Fee                *Fee   `json:"fee"` // Optional
-}
-```
+    ```go
+    type Message struct {
+    DestinationChain   string `json:"destination_chain"`
+    DestinationAddress string `json:"destination_address"`
+    Payload            []byte `json:"payload"`
+    Type               int64  `json:"type"`
+    Fee                *Fee   `json:"fee"` // Optional
+    }
+    ```
 
-For example,
+    For example,
 
-```json
-{
-  "destination_chain": "Ethereum",
-  "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
-  "payload": "base-64 encoded versioned payload",
-  "type": 1
-}
-```
+    ```json
+    {
+      "destination_chain": "Ethereum",
+      "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
+      "payload": "base-64 encoded versioned payload",
+      "type": 1
+    }
+    ```
 
 2. Upon arrival, Axelar network authenticates the message using channel-id. Validators co-sign an approval, which relayers then relay to the Axelar EVM Gateway.
 
@@ -88,27 +90,27 @@ The sender can include an optional fee field in the message, specifying the `amo
 
 2. Add the `fee` field to the message. The ICS20 packet total amount should equal to desired amount on destination + gas amount  
 
-```go
-type Fee struct {
- Amount    string `json:"amount"`
- Recipient string `json:"recipient"`
-}
-```
+    ```go
+    type Fee struct {
+    Amount    string `json:"amount"`
+    Recipient string `json:"recipient"`
+    }
+    ```
 
-For example,
+    For example,
 
-```json
-{
-  "destination_chain": "Ethereum",
-  "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
-  "payload": "base-64 encoded versioned payload",
-  "type": 1,
-  "fee": {
-    "amount": "1000000",
-    "recipient": "axelar1hyav29jdpmesg6mal7acmkpjdywjkvlsugtch3"
-  }
-}
-```
+    ```json
+    {
+      "destination_chain": "Ethereum",
+      "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
+      "payload": "base-64 encoded versioned payload",
+      "type": 1,
+      "fee": {
+        "amount": "1000000",
+        "recipient": "axelar1hyav29jdpmesg6mal7acmkpjdywjkvlsugtch3"
+      }
+    }
+    ```
 
 3. Axelar network deducts fee from the ICS20 packet, and forward the remaining value to the destination EVM chain.
 

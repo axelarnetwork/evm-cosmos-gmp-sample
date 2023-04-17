@@ -121,7 +121,7 @@ func (im IBCMiddleware) OnRecvPacket(
 	if err = json.Unmarshal([]byte(data.GetMemo()), &msg); err != nil {
 		return channeltypes.NewErrorAcknowledgement(fmt.Errorf("cannot unmarshal memo"))
 	}
-	ctx.Logger().Info(msg.SourceAddress, msg.SourceChain, msg.Payload, msg.Type, "module", "x/gmp-middleware")
+
 	switch msg.Type {
 	case TypeGeneralMessage:
 		// implement the handler

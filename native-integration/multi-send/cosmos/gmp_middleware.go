@@ -99,7 +99,6 @@ func (im IBCMiddleware) OnRecvPacket(
 	packet channeltypes.Packet,
 	relayer sdk.AccAddress,
 ) ibcexported.Acknowledgement {
-	ctx.Logger().Info("OnRecvPacket", "module", "x/gmp-middleware", "packet", packet)
 	ack := im.app.OnRecvPacket(ctx, packet, relayer)
 	if !ack.Success() {
 		return ack
@@ -111,11 +110,8 @@ func (im IBCMiddleware) OnRecvPacket(
 	}
 
 	// authenticate the message with packet sender + channel-id
-	// skip if the packet is not sent from Axelar GMP
-	//TODO: authenticate the message with channel-id
-	//if data.Sender != AxelarGMPAcc || packet.GetDestChannel() != "channel-0" {
+	// TODO: authenticate the message with channel-id
 	if data.Sender != AxelarGMPAcc {
-		ctx.Logger().Info(fmt.Sprintf("sender %s not gmp account", data.Sender), "module", "x/gmp-middleware")
 		return ack
 	}
 
@@ -125,7 +121,7 @@ func (im IBCMiddleware) OnRecvPacket(
 	if err = json.Unmarshal([]byte(data.GetMemo()), &msg); err != nil {
 		return channeltypes.NewErrorAcknowledgement(fmt.Errorf("cannot unmarshal memo"))
 	}
-	ctx.Logger().Info(msg.SourceAddress, msg.SourceChain, msg.Payload, msg.Type, "module", "x/gmp-middleware")
+
 	switch msg.Type {
 	case TypeGeneralMessage:
 		// implement the handler

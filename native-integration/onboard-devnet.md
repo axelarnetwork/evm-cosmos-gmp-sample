@@ -13,10 +13,10 @@ As the Axelar testnet has a strict onboarding process, we provide a devnet for d
 ## Supported Chains
 | Chain Name | Gateway Address |
 | :---:     | :---: |
-| goerli    | 0xfcc9fb9d2c6404D1C1BEB192020D1e7AC2826c8d |
+| ~~goerli~~    | ~~0xfcc9fb9d2c6404D1C1BEB192020D1e7AC2826c8d~~ |
 | avalanche | 0x3724270405e60Fb25f99556Ad2104631f38b9b79 |
 
-I recommend using Avalanche Fuji as the testing chain, as Goerli's finality is too slow for testing.
+Can add more test networks and tokens if needed.
 
 ## Supported Tokens
 | Chain Name | Symbol | Address |

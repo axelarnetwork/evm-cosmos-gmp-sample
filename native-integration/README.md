@@ -34,7 +34,7 @@ Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3p
     {
       "source_chain": "Ethereum",
       "source_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
-      "payload": "base-64 encoded versioned payload",
+      "payload": bytes,
       "type": 1
     }
     ```
@@ -58,11 +58,11 @@ Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3p
 
     ```go
     type Message struct {
-    DestinationChain   string `json:"destination_chain"`
-    DestinationAddress string `json:"destination_address"`
-    Payload            []byte `json:"payload"`
-    Type               int64  `json:"type"`
-    Fee                *Fee   `json:"fee"` // Optional
+      DestinationChain   string `json:"destination_chain"`
+      DestinationAddress string `json:"destination_address"`
+      Payload            []byte `json:"payload"`
+      Type               int64  `json:"type"`
+      Fee                *Fee   `json:"fee"` // Optional
     }
     ```
 
@@ -72,7 +72,7 @@ Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3p
     {
       "destination_chain": "Ethereum",
       "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
-      "payload": "base-64 encoded versioned payload",
+      "payload": bytes,
       "type": 1
     }
     ```
@@ -103,7 +103,7 @@ The sender can include an optional fee field in the message, specifying the `amo
     {
       "destination_chain": "Ethereum",
       "destination_address": "0x777d2D82dAb1BF06a4dcf5a3E07057C41100c22D",
-      "payload": "base-64 encoded versioned payload",
+      "payload": bytes,
       "type": 1,
       "fee": {
         "amount": "1000000",

@@ -81,10 +81,12 @@ Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3p
 
 3. If a smart contract implements the IAxelarExecutable interface, Axelar offers an auto-executing service. For instructions on Solidity smart contracts, refer to the [Developer doc](https://docs.axelar.dev/dev/general-message-passing/gmp-messages)
 
-### Optional Executor Service for Cosmos -> EVM
+### Relayer Service for Cosmos -> EVM
 
-Message senders can choose to pay a message executor on Axelar network to handle message execution on the destination EVM chain.
+Message senders can choose to pay a relayer on Axelar network to handle message execution on the destination EVM chain.
 The sender can include an optional fee field in the message, specifying the `amount` and `recipient`.
+
+Axelar relayer address to use as the fee recipient is `axelar1zl3rxpp70lmte2xr6c4lgske2fyuj3hupcsvcd`.
 
 1. Estimate the source gas fee in the desired token. Calcualte the gas required to execute the message on destination, and then use [estimateGasFee](https://docs.axelar.dev/dev/axelarjs-sdk/axelar-query-api#estimategasfee) (WIP integrating cosmos chains) to determine the source gas fee in the desired token.
 
@@ -107,7 +109,7 @@ The sender can include an optional fee field in the message, specifying the `amo
       "type": 1,
       "fee": {
         "amount": "1000000",
-        "recipient": "axelar1hyav29jdpmesg6mal7acmkpjdywjkvlsugtch3"
+        "recipient": "axelar1zl3rxpp70lmte2xr6c4lgske2fyuj3hupcsvcd"
       }
     }
     ```

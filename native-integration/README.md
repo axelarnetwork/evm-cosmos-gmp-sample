@@ -86,7 +86,9 @@ Axelar Network utilizes a canonical account `axelar1dv4u5k73pzqrxlzujxg3qp8kvc3p
 Message senders can choose to pay a relayer on Axelar network to handle message execution on the destination EVM chain.
 The sender can include an optional fee field in the message, specifying the `amount` and `recipient`.
 
-Axelar relayer address to use as the fee recipient is `axelar1zl3rxpp70lmte2xr6c4lgske2fyuj3hupcsvcd`.
+Axelar relayer address to use as the fee recipient:
+Testnet: `axelar1zl3rxpp70lmte2xr6c4lgske2fyuj3hupcsvcd`
+Mainnet: `axelar1aythygn6z5thymj6tmzfwekzh05ewg3l7d6y89`
 
 1. Estimate the source gas fee in the desired token. Calcualte the gas required to execute the message on destination, and then use [estimateGasFee](https://docs.axelar.dev/dev/axelarjs-sdk/axelar-query-api#estimategasfee) (WIP integrating cosmos chains) to determine the source gas fee in the desired token.
 

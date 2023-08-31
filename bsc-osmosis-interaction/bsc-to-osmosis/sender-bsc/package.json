@@ -1,0 +1,22 @@
+{
+  "name": "receiver-bsc",
+  "version": "1.0.0",
+  "description": "A GMP receiver on BSC",
+  "main": "index.js",
+
+  "author": "hoanm",
+  "license": "MIT",
+  "devDependencies": {
+    "config": "^3.3.8",
+    "hardhat": "^2.13.0",
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
+    "ethers": "^5.5.4",
+    "hardhat-deploy": "^0.10.5",
+    "hardhat-gas-reporter": "^1.0.7"
+  },
+  "dependencies": {
+    "@axelar-network/axelar-gmp-sdk-solidity": "^3.0.0",
+    "@axelar-network/axelar-cgp-solidity": "^4.3.0",
+    "@openzeppelin/contracts": "^4.8.1"
+  }
+}

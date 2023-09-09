@@ -4,11 +4,11 @@ This repo demonstrates how to pass arbitrary string messages between EVM and Cos
 
 ## How to use
 ### Deployments
-EVM contract deployed to Fuji Testnet: https://testnet.snowtrace.io/address/0xa88B3843E895988D423efFc4Ecc2E982f398a3Ab#code
+EVM contract deployed to: `0xcD9ce18C188B0befeE21601beE34be7Ce4cfe255`
 
-Cosmwasm contract deployed to osmosis-5 testnet: `osmo12uds53qp285w68vzq9wx5kjjfj0evvsy7k0e2srx9mchj29h7urq3rtuuc`
+Cosmwasm contract deployed to provenance devnet: `tp1kaulpuq2rpvz9yr3z74eyjxhu2y4yd546gvtw56urgpe8rwkxn7se9kwyk`
 
-Axelar GMP can be tracked on AxelarScan: https://testnet.axelarscan.io/gmp/search
+Substitute the osmosis and avalanche with the appropriate Cosmos and EVM chains.
 
 ### EVM
 Users can call `send("osmosis-6", "osmo12uds53qp285w68vzq9wx5kjjfj0evvsy7k0e2srx9mchj29h7urq3rtuuc", "your_message_here")` to send a message to the Cosmwasm contract. Make sure to include a msg.value to pay for gas, e.g. 0.01 AVAX.

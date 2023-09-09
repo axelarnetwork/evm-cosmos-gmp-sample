@@ -2,20 +2,24 @@
 
 This project contains the EVM smart contract that can send and receive message payloads to/from Cosmwasm.
 
-This contract is deployed to Fuji Testnet: https://testnet.snowtrace.io/address/0xa88B3843E895988D423efFc4Ecc2E982f398a3Ab#code
+This contract is deployed to: `0xe56Aff599B9Ee2E79789DDA99d29A22e817A3ef8`
 ## How to use
-User must first create a `.env` file that contains 
+User must first create a `.env` file that contains
 ```
-DEPLOYER_PRIV_KEY = <deployer_wallet_private_key>
-FUJI_API_KEY = <infura_api_key_for_fuji_testnet>
+KEY = <private key>
+RPC = <chain rpc>
 ```
 
 ### Deploy
-SendReceive can be deployed to Fuji Testnet using `npx hardhat run ./scripts/deploy.js --network fuji`.
+SendReceive can be deployed to Fuji Testnet using `npx hardhat run ./scripts/deploy.js --network onyx`.
+
+### Send message
+`npx hardhat run ./scripts/send.js --network onyx`
+
+### Check for received message
+`npx hardhat run ./scripts/check.js --network onyx`
 
 ### Tests
 Local tests use a mock gateway/gas service found at `/contracts/Mock/AxelarGatewayGasServiceMock.sol`. This is used to mock out all calls from the SendReceive contract to the Gateway and GasService in testing.
 
 Tests can be run using `npx hardhat test`
-
-

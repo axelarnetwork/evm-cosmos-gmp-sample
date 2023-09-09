@@ -13,7 +13,7 @@ module.exports = {
     }
   },
   networks: {
-    fuji: {
+    onyx: {
       url: process.env.RPC,
       accounts: [process.env.KEY],
     }

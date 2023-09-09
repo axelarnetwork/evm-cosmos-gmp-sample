@@ -12,6 +12,8 @@ contract SendReceive is AxelarExecutable {
     using StringToAddress for string;
     using AddressToString for address;
 
+    event MessageReceived(string sender, string message);
+
     IAxelarGasService public immutable gasService;
     string public chainName; // name of the chain this contract is deployed to
 
@@ -56,7 +58,7 @@ contract SendReceive is AxelarExecutable {
     function _encodePayloadToCosmWasm(bytes memory executeMsgPayload) internal view returns (bytes memory) {
         // Schema
         //   bytes4  version number (0x00000001)
-        //   bytes   ABI-encoded payload, indicating function name and arguments:           
+        //   bytes   ABI-encoded payload, indicating function name and arguments:
         //     string                   CosmWasm contract method name
         //     dynamic array of string  CosmWasm contract argument name array
         //     dynamic array of string  argument abi type array
@@ -97,8 +99,9 @@ contract SendReceive is AxelarExecutable {
         string calldata /*sourceChain*/,
         string calldata /*sourceAddress*/,
         bytes calldata payload
-    ) internal override {      
+    ) internal override {
         (string memory sender, string memory message) = abi.decode(payload, (string, string));
         storedMessage = Message(sender, message);
+        emit MessageReceived(sender, message);
     }
 }

@@ -15,7 +15,10 @@ async function main() {
     return;
   }
 
-  const tx = await contract.send("provenance", "tp1kaulpuq2rpvz9yr3z74eyjxhu2y4yd546gvtw56urgpe8rwkxn7se9kwyk", message);
+  const destination = "tp1kaulpuq2rpvz9yr3z74eyjxhu2y4yd546gvtw56urgpe8rwkxn7se9kwyk";
+  console.log(`Sending message: ${message} to ${destination}`);
+
+  const tx = await contract.send("provenance", destination, message);
   console.log(`Tx hash: ${tx.hash}`);
 
   await tx.wait();

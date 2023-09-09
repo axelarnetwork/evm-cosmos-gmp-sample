@@ -2,7 +2,7 @@
 
 This project contains the EVM smart contract that can send and receive message payloads to/from Cosmwasm.
 
-This contract is deployed to: `0xe56Aff599B9Ee2E79789DDA99d29A22e817A3ef8`
+This contract is deployed to: `0xcD9ce18C188B0befeE21601beE34be7Ce4cfe255`
 ## How to use
 User must first create a `.env` file that contains
 ```

@@ -3,11 +3,11 @@ const hre = require("hardhat");
 async function main() {
   let SendReceiveFactory = await hre.ethers.getContractFactory("SendReceive");
   let sendreceive = await SendReceiveFactory.deploy(
-    "0xC249632c2D40b9001FE907806902f63038B737Ab", // axelar gateway
-    "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6", // axelar gas service
-    "Avalanche"                                   // fuji chain name
+    "0xe432150cce91c13a887f7D836923d5597adD8E31", // axelar gateway
+    "0x24C2b56128fF8E7bFaD578ABefB0fc7Dfa9ba358", // axelar gas service
+    "onyx"                                        // chain name
     );
-  
+
     console.log("SendReceive deployed to: ", sendreceive.address);
 }
 

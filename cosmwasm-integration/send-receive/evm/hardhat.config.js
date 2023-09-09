@@ -14,8 +14,8 @@ module.exports = {
   },
   networks: {
     fuji: {
-      url: `https://avalanche-fuji.infura.io/v3/${process.env.FUJI_API_KEY}`,
-      accounts: [process.env.DEPLOYER_PRIV_KEY],
+      url: process.env.RPC,
+      accounts: [process.env.KEY],
     }
   }
 };

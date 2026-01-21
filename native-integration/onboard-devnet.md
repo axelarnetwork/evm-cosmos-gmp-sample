@@ -25,7 +25,7 @@ Can add more test networks and tokens if needed.
 | avalanche | aUSDC | 0xB366eF4Fa35644c7A10C4Ea90F826562475f66e0 |
 
 ## Connect to the Devnet
-1. Establiblish an IBC transfer channel between your testing chain and the devnet, and run the relyer. Hermes config for the devnet is as follows:
+1. Establiblish an IBC transfer channel between your testing chain and the devnet, and run the relayer. Hermes config for the devnet is as follows:
     ```
     [[chains]]
     id = 'devnet-wk'

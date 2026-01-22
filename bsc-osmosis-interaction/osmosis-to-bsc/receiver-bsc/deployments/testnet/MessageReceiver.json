@@ -1,0 +1,171 @@
+{
+  "address": "0x416B6c95cA2594303ba993A0E8312CfAF94751Bf",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "gateway_",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotApprovedByGateway",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        },
+        {
+          "internalType": "string",
+          "name": "tokenSymbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeWithToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gateway",
+      "outputs": [
+        {
+          "internalType": "contract IAxelarGateway",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lastReceivedMessage",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x9fa7ca3029acac4ea9ed8cb8df3a17d701489aeb2918dd1ce9aa528c7f908214",
+  "receipt": {
+    "to": null,
+    "from": "0x3552C6ff4a091ED6f51dF52fcD3e6e7682C57fCF",
+    "contractAddress": "0x416B6c95cA2594303ba993A0E8312CfAF94751Bf",
+    "transactionIndex": 2,
+    "gasUsed": "635044",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x36df378837fe8f33aa5b6ffd9d5207129c635266ca0ac60d0500f39490df5394",
+    "transactionHash": "0x9fa7ca3029acac4ea9ed8cb8df3a17d701489aeb2918dd1ce9aa528c7f908214",
+    "logs": [],
+    "blockNumber": 27916691,
+    "cumulativeGasUsed": "677044",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x4D147dCb984e6affEEC47e44293DA442580A3Ec0"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "e6360cd98a229397ed552bcf327da0d8",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"gateway_\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotApprovedByGateway\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"}],\"name\":\"execute\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"tokenSymbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"executeWithToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gateway\",\"outputs\":[{\"internalType\":\"contract IAxelarGateway\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastReceivedMessage\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/MessageReceiver.sol\":\"MessageReceiver\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@axelar-network/axelar-gmp-sdk-solidity/contracts/executables/AxelarExecutable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IAxelarGateway } from '../interfaces/IAxelarGateway.sol';\\nimport { IAxelarExecutable } from '../interfaces/IAxelarExecutable.sol';\\n\\ncontract AxelarExecutable is IAxelarExecutable {\\n    IAxelarGateway public immutable gateway;\\n\\n    constructor(address gateway_) {\\n        if (gateway_ == address(0)) revert InvalidAddress();\\n\\n        gateway = IAxelarGateway(gateway_);\\n    }\\n\\n    function execute(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload\\n    ) external override {\\n        bytes32 payloadHash = keccak256(payload);\\n        if (!gateway.validateContractCall(commandId, sourceChain, sourceAddress, payloadHash))\\n            revert NotApprovedByGateway();\\n        _execute(sourceChain, sourceAddress, payload);\\n    }\\n\\n    function executeWithToken(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) external override {\\n        bytes32 payloadHash = keccak256(payload);\\n        if (\\n            !gateway.validateContractCallAndMint(\\n                commandId,\\n                sourceChain,\\n                sourceAddress,\\n                payloadHash,\\n                tokenSymbol,\\n                amount\\n            )\\n        ) revert NotApprovedByGateway();\\n\\n        _executeWithToken(sourceChain, sourceAddress, payload, tokenSymbol, amount);\\n    }\\n\\n    function _execute(\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload\\n    ) internal virtual {}\\n\\n    function _executeWithToken(\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) internal virtual {}\\n}\\n\",\"keccak256\":\"0x37f5cbdc641ca8f0dc24991af6038d4db55b0740f4383fbd4c443bd2a98abb95\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarExecutable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IAxelarGateway } from '../interfaces/IAxelarGateway.sol';\\n\\ninterface IAxelarExecutable {\\n    error InvalidAddress();\\n    error NotApprovedByGateway();\\n\\n    function gateway() external view returns (IAxelarGateway);\\n\\n    function execute(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload\\n    ) external;\\n\\n    function executeWithToken(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) external;\\n}\\n\",\"keccak256\":\"0x7175f7bfe798e46032ad40bd87666c6ef3f03c0397c875cf3465510a9fc75237\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\ninterface IAxelarGateway {\\n    /**********\\\\\\n    |* Errors *|\\n    \\\\**********/\\n\\n    error NotSelf();\\n    error NotProxy();\\n    error InvalidCodeHash();\\n    error SetupFailed();\\n    error InvalidAuthModule();\\n    error InvalidTokenDeployer();\\n    error InvalidAmount();\\n    error InvalidChainId();\\n    error InvalidCommands();\\n    error TokenDoesNotExist(string symbol);\\n    error TokenAlreadyExists(string symbol);\\n    error TokenDeployFailed(string symbol);\\n    error TokenContractDoesNotExist(address token);\\n    error BurnFailed(string symbol);\\n    error MintFailed(string symbol);\\n    error InvalidSetMintLimitsParams();\\n    error ExceedMintLimit(string symbol);\\n\\n    /**********\\\\\\n    |* Events *|\\n    \\\\**********/\\n\\n    event TokenSent(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationAddress,\\n        string symbol,\\n        uint256 amount\\n    );\\n\\n    event ContractCall(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationContractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes payload\\n    );\\n\\n    event ContractCallWithToken(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationContractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes payload,\\n        string symbol,\\n        uint256 amount\\n    );\\n\\n    event Executed(bytes32 indexed commandId);\\n\\n    event TokenDeployed(string symbol, address tokenAddresses);\\n\\n    event ContractCallApproved(\\n        bytes32 indexed commandId,\\n        string sourceChain,\\n        string sourceAddress,\\n        address indexed contractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes32 sourceTxHash,\\n        uint256 sourceEventIndex\\n    );\\n\\n    event ContractCallApprovedWithMint(\\n        bytes32 indexed commandId,\\n        string sourceChain,\\n        string sourceAddress,\\n        address indexed contractAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        bytes32 sourceTxHash,\\n        uint256 sourceEventIndex\\n    );\\n\\n    event TokenMintLimitUpdated(string symbol, uint256 limit);\\n\\n    event OperatorshipTransferred(bytes newOperatorsData);\\n\\n    event Upgraded(address indexed implementation);\\n\\n    /********************\\\\\\n    |* Public Functions *|\\n    \\\\********************/\\n\\n    function sendToken(\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external;\\n\\n    function callContract(\\n        string calldata destinationChain,\\n        string calldata contractAddress,\\n        bytes calldata payload\\n    ) external;\\n\\n    function callContractWithToken(\\n        string calldata destinationChain,\\n        string calldata contractAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external;\\n\\n    function isContractCallApproved(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        address contractAddress,\\n        bytes32 payloadHash\\n    ) external view returns (bool);\\n\\n    function isContractCallAndMintApproved(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        address contractAddress,\\n        bytes32 payloadHash,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external view returns (bool);\\n\\n    function validateContractCall(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes32 payloadHash\\n    ) external returns (bool);\\n\\n    function validateContractCallAndMint(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes32 payloadHash,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /***********\\\\\\n    |* Getters *|\\n    \\\\***********/\\n\\n    function authModule() external view returns (address);\\n\\n    function tokenDeployer() external view returns (address);\\n\\n    function tokenMintLimit(string memory symbol) external view returns (uint256);\\n\\n    function tokenMintAmount(string memory symbol) external view returns (uint256);\\n\\n    function allTokensFrozen() external view returns (bool);\\n\\n    function implementation() external view returns (address);\\n\\n    function tokenAddresses(string memory symbol) external view returns (address);\\n\\n    function tokenFrozen(string memory symbol) external view returns (bool);\\n\\n    function isCommandExecuted(bytes32 commandId) external view returns (bool);\\n\\n    function adminEpoch() external view returns (uint256);\\n\\n    function adminThreshold(uint256 epoch) external view returns (uint256);\\n\\n    function admins(uint256 epoch) external view returns (address[] memory);\\n\\n    /*******************\\\\\\n    |* Admin Functions *|\\n    \\\\*******************/\\n\\n    function setTokenMintLimits(string[] calldata symbols, uint256[] calldata limits) external;\\n\\n    function upgrade(\\n        address newImplementation,\\n        bytes32 newImplementationCodeHash,\\n        bytes calldata setupParams\\n    ) external;\\n\\n    /**********************\\\\\\n    |* External Functions *|\\n    \\\\**********************/\\n\\n    function setup(bytes calldata params) external;\\n\\n    function execute(bytes calldata input) external;\\n}\\n\",\"keccak256\":\"0xae3d4598622e927639e3cba383618476562631bc8afafe68b16dfbd1db21fd78\",\"license\":\"MIT\"},\"contracts/MessageReceiver.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity ^0.8.18;\\n\\nimport { AxelarExecutable } from \\\"@axelar-network/axelar-gmp-sdk-solidity/contracts/executables/AxelarExecutable.sol\\\";\\n\\ncontract MessageReceiver is AxelarExecutable {\\n    // the lastest received message\\n    // every time a message is received, it will be updated\\n    string public lastReceivedMessage;\\n\\n    // BSC testnet\\n    // Gateway Contract: 0x4D147dCb984e6affEEC47e44293DA442580A3Ec0\\n    constructor(address gateway_) AxelarExecutable(gateway_) {}\\n\\n    function _execute(\\n        string calldata sourceChain, \\n        string calldata sourceAddress, \\n        bytes calldata payload\\n    ) internal override {\\n        // decode the payload to get the message\\n        string memory message = abi.decode(payload, (string));\\n\\n        // update the last received message by concatenating the new message with source address and chain\\n        lastReceivedMessage = string(abi.encodePacked(\\\"AT \\\", block.timestamp,\\n                                                      \\\"RECEIVE MESSAGE: '\\\", message, \\\"'\\\", \\n                                                      \\\" FROM \\\", sourceAddress, \\n                                                      \\\" ON \\\", sourceChain));\\n    }\\n\\n    function _executeWithToken(\\n        string calldata sourceChain, \\n        string calldata sourceAddress, \\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) internal override {\\n        // decode the payload to get the message\\n        string memory message = abi.decode(payload, (string));\\n\\n        // update the last received message by concatenating the new message with source address and chain\\n        lastReceivedMessage = string(abi.encodePacked(\\\"AT \\\", block.timestamp,\\n                                                      \\\"RECEIVE MESSAGE: '\\\", message, \\\"'\\\", \\n                                                      \\\" FROM \\\", sourceAddress, \\n                                                      \\\" ON \\\", sourceChain,\\n                                                      \\\" WITH \\\", amount, tokenSymbol));\\n    }\\n}\\n\",\"keccak256\":\"0x7e6ab54ac5f550594bb46b7ef8f11842bae559396e56bb47497f34ef71e34993\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a060405234801561001057600080fd5b50604051610b3f380380610b3f83398101604081905261002f91610069565b806001600160a01b0381166100575760405163e6c4247b60e01b815260040160405180910390fd5b6001600160a01b031660805250610099565b60006020828403121561007b57600080fd5b81516001600160a01b038116811461009257600080fd5b9392505050565b608051610a7e6100c16000396000818160560152818161010301526101f70152610a7e6000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c8063116191b6146100515780631a98b2e01461009557806349160658146100aa57806392dd427b146100bd575b600080fd5b6100787f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100a86100a336600461041b565b6100d2565b005b6100a86100b83660046104f5565b6101c6565b6100c56102ae565b60405161008c91906105bd565b600085856040516100e49291906105f0565b604051908190038120631876eed960e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690631876eed990610148908e908e908e908e908e9089908d908d908d90600401610629565b6020604051808303816000875af1158015610167573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061018b9190610688565b6101a857604051631403112d60e21b815260040160405180910390fd5b6101b98a8a8a8a8a8a8a8a8a61033c565b5050505050505050505050565b600082826040516101d89291906105f0565b604051908190038120635f6970c360e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690635f6970c390610236908b908b908b908b908b9089906004016106b1565b6020604051808303816000875af1158015610255573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102799190610688565b61029657604051631403112d60e21b815260040160405180910390fd5b6102a487878787878761038a565b5050505050505050565b600080546102bb906106f2565b80601f01602080910402602001604051908101604052809291908181526020018280546102e7906106f2565b80156103345780601f1061030957610100808354040283529160200191610334565b820191906000526020600020905b81548152906001019060200180831161031757829003601f168201915b505050505081565b600061034a85870187610742565b9050428189898d8d878a8a60405160200161036d999897969594939291906107f3565b604051602081830303815290604052600090816101b991906108f7565b600061039882840184610742565b9050428186868a8a6040516020016103b5969594939291906109b7565b604051602081830303815290604052600090816102a491906108f7565b60008083601f8401126103e457600080fd5b50813567ffffffffffffffff8111156103fc57600080fd5b60208301915083602082850101111561041457600080fd5b9250929050565b60008060008060008060008060008060c08b8d03121561043a57600080fd5b8a35995060208b013567ffffffffffffffff8082111561045957600080fd5b6104658e838f016103d2565b909b50995060408d013591508082111561047e57600080fd5b61048a8e838f016103d2565b909950975060608d01359150808211156104a357600080fd5b6104af8e838f016103d2565b909750955060808d01359150808211156104c857600080fd5b506104d58d828e016103d2565b9150809450508092505060a08b013590509295989b9194979a5092959850565b60008060008060008060006080888a03121561051057600080fd5b87359650602088013567ffffffffffffffff8082111561052f57600080fd5b61053b8b838c016103d2565b909850965060408a013591508082111561055457600080fd5b6105608b838c016103d2565b909650945060608a013591508082111561057957600080fd5b506105868a828b016103d2565b989b979a50959850939692959293505050565b60005b838110156105b457818101518382015260200161059c565b50506000910152565b60208152600082518060208401526105dc816040850160208701610599565b601f01601f19169190910160400192915050565b8183823760009101908152919050565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b89815260c06020820152600061064360c083018a8c610600565b828103604084015261065681898b610600565b90508660608401528281036080840152610671818688610600565b9150508260a08301529a9950505050505050505050565b60006020828403121561069a57600080fd5b815180151581146106aa57600080fd5b9392505050565b8681526080602082015260006106cb608083018789610600565b82810360408401526106de818688610600565b915050826060830152979650505050505050565b600181811c9082168061070657607f821691505b60208210810361072657634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052604160045260246000fd5b60006020828403121561075457600080fd5b813567ffffffffffffffff8082111561076c57600080fd5b818401915084601f83011261078057600080fd5b8135818111156107925761079261072c565b604051601f8201601f19908116603f011681019083821181831017156107ba576107ba61072c565b816040528281528760208487010111156107d357600080fd5b826020860160208301376000928101602001929092525095945050505050565b62020aa160ed1b81528960038201527152454345495645204d4553534147453a202760701b602382015260008951610832816035850160208e01610599565b602760f81b60359184019182015265010232927a6960d51b6036820152888a603c8301376301027a7160e51b603c918a0191820152868860408301378681019050650102ba4aa24160d51b6040820152856046820152838560668301376000930160660192835250909998505050505050505050565b601f8211156108f257600081815260208120601f850160051c810160208610156108cf5750805b601f850160051c820191505b818110156108ee578281556001016108db565b5050505b505050565b815167ffffffffffffffff8111156109115761091161072c565b6109258161091f84546106f2565b846108a8565b602080601f83116001811461095a57600084156109425750858301515b600019600386901b1c1916600185901b1785556108ee565b600085815260208120601f198616915b828110156109895788860151825594840194600190910190840161096a565b50858210156109a75787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b62020aa160ed1b81528660038201527152454345495645204d4553534147453a202760701b6023820152600086516109f6816035850160208b01610599565b602760f81b60359184019182015265010232927a6960d51b60368201528587603c8301376301027a7160e51b603c9187019182015283856040830137600093016040019283525090969550505050505056fea2646970667358221220a9b739ac16fb02de9943f46a3270830a102d4efc576254abe5b34250a6ed460364736f6c63430008120033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c8063116191b6146100515780631a98b2e01461009557806349160658146100aa57806392dd427b146100bd575b600080fd5b6100787f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100a86100a336600461041b565b6100d2565b005b6100a86100b83660046104f5565b6101c6565b6100c56102ae565b60405161008c91906105bd565b600085856040516100e49291906105f0565b604051908190038120631876eed960e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690631876eed990610148908e908e908e908e908e9089908d908d908d90600401610629565b6020604051808303816000875af1158015610167573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061018b9190610688565b6101a857604051631403112d60e21b815260040160405180910390fd5b6101b98a8a8a8a8a8a8a8a8a61033c565b5050505050505050505050565b600082826040516101d89291906105f0565b604051908190038120635f6970c360e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690635f6970c390610236908b908b908b908b908b9089906004016106b1565b6020604051808303816000875af1158015610255573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102799190610688565b61029657604051631403112d60e21b815260040160405180910390fd5b6102a487878787878761038a565b5050505050505050565b600080546102bb906106f2565b80601f01602080910402602001604051908101604052809291908181526020018280546102e7906106f2565b80156103345780601f1061030957610100808354040283529160200191610334565b820191906000526020600020905b81548152906001019060200180831161031757829003601f168201915b505050505081565b600061034a85870187610742565b9050428189898d8d878a8a60405160200161036d999897969594939291906107f3565b604051602081830303815290604052600090816101b991906108f7565b600061039882840184610742565b9050428186868a8a6040516020016103b5969594939291906109b7565b604051602081830303815290604052600090816102a491906108f7565b60008083601f8401126103e457600080fd5b50813567ffffffffffffffff8111156103fc57600080fd5b60208301915083602082850101111561041457600080fd5b9250929050565b60008060008060008060008060008060c08b8d03121561043a57600080fd5b8a35995060208b013567ffffffffffffffff8082111561045957600080fd5b6104658e838f016103d2565b909b50995060408d013591508082111561047e57600080fd5b61048a8e838f016103d2565b909950975060608d01359150808211156104a357600080fd5b6104af8e838f016103d2565b909750955060808d01359150808211156104c857600080fd5b506104d58d828e016103d2565b9150809450508092505060a08b013590509295989b9194979a5092959850565b60008060008060008060006080888a03121561051057600080fd5b87359650602088013567ffffffffffffffff8082111561052f57600080fd5b61053b8b838c016103d2565b909850965060408a013591508082111561055457600080fd5b6105608b838c016103d2565b909650945060608a013591508082111561057957600080fd5b506105868a828b016103d2565b989b979a50959850939692959293505050565b60005b838110156105b457818101518382015260200161059c565b50506000910152565b60208152600082518060208401526105dc816040850160208701610599565b601f01601f19169190910160400192915050565b8183823760009101908152919050565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b89815260c06020820152600061064360c083018a8c610600565b828103604084015261065681898b610600565b90508660608401528281036080840152610671818688610600565b9150508260a08301529a9950505050505050505050565b60006020828403121561069a57600080fd5b815180151581146106aa57600080fd5b9392505050565b8681526080602082015260006106cb608083018789610600565b82810360408401526106de818688610600565b915050826060830152979650505050505050565b600181811c9082168061070657607f821691505b60208210810361072657634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052604160045260246000fd5b60006020828403121561075457600080fd5b813567ffffffffffffffff8082111561076c57600080fd5b818401915084601f83011261078057600080fd5b8135818111156107925761079261072c565b604051601f8201601f19908116603f011681019083821181831017156107ba576107ba61072c565b816040528281528760208487010111156107d357600080fd5b826020860160208301376000928101602001929092525095945050505050565b62020aa160ed1b81528960038201527152454345495645204d4553534147453a202760701b602382015260008951610832816035850160208e01610599565b602760f81b60359184019182015265010232927a6960d51b6036820152888a603c8301376301027a7160e51b603c918a0191820152868860408301378681019050650102ba4aa24160d51b6040820152856046820152838560668301376000930160660192835250909998505050505050505050565b601f8211156108f257600081815260208120601f850160051c810160208610156108cf5750805b601f850160051c820191505b818110156108ee578281556001016108db565b5050505b505050565b815167ffffffffffffffff8111156109115761091161072c565b6109258161091f84546106f2565b846108a8565b602080601f83116001811461095a57600084156109425750858301515b600019600386901b1c1916600185901b1785556108ee565b600085815260208120601f198616915b828110156109895788860151825594840194600190910190840161096a565b50858210156109a75787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b62020aa160ed1b81528660038201527152454345495645204d4553534147453a202760701b6023820152600086516109f6816035850160208b01610599565b602760f81b60359184019182015265010232927a6960d51b60368201528587603c8301376301027a7160e51b603c9187019182015283856040830137600093016040019283525090969550505050505056fea2646970667358221220a9b739ac16fb02de9943f46a3270830a102d4efc576254abe5b34250a6ed460364736f6c63430008120033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 539,
+        "contract": "contracts/MessageReceiver.sol:MessageReceiver",
+        "label": "lastReceivedMessage",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_string_storage"
+      }
+    ],
+    "types": {
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

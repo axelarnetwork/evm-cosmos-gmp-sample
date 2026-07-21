@@ -164,6 +164,40 @@ mod exec {
         _source_address: String,
         payload: Binary,
     ) -> Result<Response, ContractError> {
+        // Demo only — this shouldn't be used as-is in production: it does NOT authorize the sender.
+        // `execute` is a public entry point, so anyone on this chain can call ReceiveMessageEvm with
+        // forged source_chain/source_address and overwrite state.
+        //
+        // To make this production-safe, authorize the sender exactly like token-linker's
+        // `execute_from_remote` in this repo. It is mechanical — add config + one guard:
+        //
+        //   1. state.rs — store the trusted origin, set once at instantiate:
+        //        #[cw_serde]
+        //        pub struct Config {
+        //            pub axelar_gmp_account: String, // Axelar's GMP account derived address on THIS
+        //                                            // chain — this is what `info.sender` will equal
+        //            pub source_chain: String,       // trusted origin, e.g. "ethereum"
+        //            pub source_address: String,     // trusted EVM sender contract, e.g. "0xAbc..."
+        //        }
+        //        pub const CONFIG: Item<Config> = Item::new("config");
+        //      Populate it in instantiate() from InstantiateMsg (currently empty), and thread
+        //      `info: MessageInfo` into this handler — execute()'s dispatch currently drops it.
+        //
+        //   2. Guard at the top of this fn (source_chain/source_address are already passed in;
+        //      drop the leading underscores from the params once you use them):
+        //        let config = CONFIG.load(deps.storage)?;
+        //        if source_chain != config.source_chain
+        //            || source_address != config.source_address
+        //            || info.sender != config.axelar_gmp_account
+        //        {
+        //            return Err(ContractError::Unauthorized {});
+        //        }
+        //
+        // Why all three: info.sender is stamped by the ibc-hooks middleware and cannot be spoofed by
+        // a direct caller, so it proves the call truly arrived via Axelar GMP over the expected
+        // channel; source_chain/source_address prove which EVM contract sent it. The source fields
+        // alone are worthless (a direct caller forges them) — the info.sender check is what makes
+        // them trustworthy.
         // decode the payload
         // executeMsgPayload: [sender, message]
         let decoded = decode(

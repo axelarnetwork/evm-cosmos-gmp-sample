@@ -59,8 +59,12 @@ contract MultiSend is AxelarExecutableWithToken {
         string calldata tokenSymbol,
         uint256 amount
         ) internal override {
-            // Demo only — this shouldn't be used as-is in production: it does not authenticate the
-            // cross-chain message source. Validate sourceChain/sourceAddress against a trusted sender.
+            // This handler is intentionally permissionless, and that is safe here: it only distributes
+            // the tokens delivered with THIS message (`amount`) among the payload-supplied recipients
+            // and holds no funds or privileged state, so a forged call can only move the caller's own
+            // delivered tokens (sentAmount * len <= amount). Authenticating the source would buy
+            // nothing. Add source authentication when a forged message could command value or state it
+            // is not entitled to — see token-linker in this repo, which mints and must verify the sender.
             address[] memory recipients = abi.decode(payload, (address[]));
             require(recipients.length > 0, "No recipients");
             address tokenAddress = gatewayWithToken().tokenAddresses(tokenSymbol);

@@ -3,8 +3,8 @@ Multisend is a sample contract that sends token to multiple cosmos chain address
 
 ### Build
 ```
-npm i
-npm run buld
+pnpm install
+pnpm run build
 ```
 
 ### Deploy and Interact

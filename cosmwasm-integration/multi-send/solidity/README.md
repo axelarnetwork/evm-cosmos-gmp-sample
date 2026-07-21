@@ -33,8 +33,8 @@ gateway.callContractWithToken(destinationChain, destinationContract, payloadToCW
 ## Setup
 
 ```bash
-npm i
-npm run build
+pnpm install
+pnpm run build
 ```
 
 ## Deplpy

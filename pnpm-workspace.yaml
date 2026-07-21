@@ -1,0 +1,13 @@
+allowBuilds:
+  keccak: true
+  secp256k1: true
+
+# Hardhat's Solidity resolver reads packages from a flat top-level node_modules,
+# so use a hoisted layout (pnpm 11 reads this here, not .npmrc).
+nodeLinker: hoisted
+
+packages:
+  - "native-integration/multi-send/solidity"
+  - "cosmwasm-integration/multi-send/solidity"
+  - "cosmwasm-integration/send-receive/evm"
+  - "cosmwasm-integration/token-linker/solidity"

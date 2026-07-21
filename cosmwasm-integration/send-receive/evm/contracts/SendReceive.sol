@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import {AxelarExecutable} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/executable/AxelarExecutable.sol";
 import {IAxelarGateway} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol";
 import {IAxelarGasService} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol";
-import {StringToAddress, AddressToString} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/utils/AddressString.sol";
+import {StringToAddress, AddressToString} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/libs/AddressString.sol";
 
 // import "hardhat/console.sol";
 
@@ -50,7 +50,7 @@ contract SendReceive is AxelarExecutable {
         );
 
         // 3. Make GMP call
-        gateway.callContract(destinationChain, destinationAddress, payload);
+        gateway().callContract(destinationChain, destinationAddress, payload);
     }
 
     function _encodePayloadToCosmWasm(bytes memory executeMsgPayload) internal view returns (bytes memory) {
@@ -94,10 +94,13 @@ contract SendReceive is AxelarExecutable {
     }
 
     function _execute(
+        bytes32 /*commandId*/,
         string calldata /*sourceChain*/,
         string calldata /*sourceAddress*/,
         bytes calldata payload
-    ) internal override {      
+    ) internal override {
+        // Demo only — this shouldn't be used as-is in production: it does not authenticate the
+        // cross-chain message source. Validate sourceChain/sourceAddress against a trusted sender.
         (string memory sender, string memory message) = abi.decode(payload, (string, string));
         storedMessage = Message(sender, message);
     }

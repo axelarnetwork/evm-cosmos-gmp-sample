@@ -70,6 +70,17 @@ pub fn multi_send(
     info: MessageInfo,
     recipients: Vec<String>,
 ) -> Result<Response, ContractError> {
+    // Note on authorization: this handler is intentionally permissionless, and that is SAFE here.
+    // `multi_send` only distributes the funds attached to THIS message among the caller-supplied
+    // recipients — it holds no funds or privileged state of its own, so a direct or forged call can
+    // only ever move the caller's own attached coins (total paid out is `amount/len * len <= amount`,
+    // so a call never touches a pre-existing balance). Source authentication would buy nothing and
+    // would wrongly make the contract permissioned.
+    //
+    // Add source authentication only when a forged message could command value or state it is not
+    // entitled to — e.g. token-linker's `execute_from_remote` in this repo, which MINTS tokens and
+    // therefore must verify the message came from the trusted EVM locker (it checks info.sender ==
+    // the Axelar GMP account AND source_chain/source_address). See that contract for the pattern.
     let coin = cw_utils::one_coin(&info).unwrap();
     if recipients
         .clone()

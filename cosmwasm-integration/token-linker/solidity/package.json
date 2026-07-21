@@ -10,12 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@axelar-network/axelar-cgp-solidity": "^4.3.0",
-    "@axelar-network/axelar-gmp-sdk-solidity": "^3.0.0",
-    "@openzeppelin/contracts": "^4.8.1"
+    "@axelar-network/axelar-gmp-sdk-solidity": "^6.2.0"
   },
   "devDependencies": {
-    "config": "^3.3.8",
-    "hardhat": "^2.12.2"
+    "config": "^3.3.9",
+    "hardhat": "^2.22.0"
   }
 }

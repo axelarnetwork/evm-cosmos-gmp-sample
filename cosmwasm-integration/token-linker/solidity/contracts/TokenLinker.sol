@@ -3,21 +3,15 @@ pragma solidity 0.8.9;
 
 import {AxelarExecutable} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/executable/AxelarExecutable.sol";
 import {IAxelarGateway} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol";
-import {ERC20} from "@axelar-network/axelar-cgp-solidity/contracts/ERC20.sol";
 import {IERC20} from "./interfaces/IERC20.sol";
 import {IAxelarGasService} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol";
-import {StringToAddress, AddressToString} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/utils/AddressString.sol";
+import {StringToAddress, AddressToString} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/libs/AddressString.sol";
 import {StringArray} from "./utils/stringArray.sol";
 
 contract TokenLinker is AxelarExecutable {
     using StringToAddress for string;
     using AddressToString for address;
 
-    error AlreadyInitialized();
-    error InvalidDestinationChain();
-    event FalseSender(string sourceChain, string sourceAddress);
-    error GatewayToken();
-    error AlreadyRegistered();
     error TransferFromFailed();
     error TransferFailed();
 
@@ -110,15 +104,18 @@ contract TokenLinker is AxelarExecutable {
                 msg.sender
             );
         }
-        gateway.callContract(destinationChain, destinationAddress, payload);
+        gateway().callContract(destinationChain, destinationAddress, payload);
     }
 
     function _execute(
+        bytes32 /*commandId*/,
         string calldata /*sourceChain*/,
         string calldata /*sourceAddress*/,
         bytes calldata payload
     ) internal override {
-        // TODO: authenticaiton, anyone can call _execute atm
+        // Demo only — this shouldn't be used as-is in production: it does NOT authenticate the
+        // cross-chain message source, so anyone can trigger a transfer. Validate sourceChain and
+        // sourceAddress against a trusted TokenLinker before releasing funds.
         (address to, uint256 amount) = abi.decode(payload, (address, uint256));
         _transfer(to, amount);
     }

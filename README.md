@@ -1,5 +1,7 @@
 ## EVM <-> Cosmos General Message Passing Demo
 
+> ⚠️ **Example code only.** These contracts are for demonstration and learning; they are intentionally minimal and omit production concerns — notably, the EVM receive handlers do **not** authenticate the source (`sourceChain`/`sourceAddress`) of incoming cross-chain messages. Do not deploy as-is or fork as a production template. Review in full, add the safeguards your use case needs, and get an independent security audit. Roll out progressively: test on testnet first, then on mainnet start with small-value transfers before scaling up.
+
 Axelar enables general messages passing between EVM and Cosmos chains.
 
 In a nutshell, Axelar verifies messages originating from an EVM chain and forwards them as memo fields through ICS20 packets.
